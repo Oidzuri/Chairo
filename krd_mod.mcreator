@@ -9,16 +9,352 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "krd_logic"
+    },
+    {
+      "name": "Nichirins",
+      "type": "tab",
+      "sortid": 2,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirins",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "Nichirin",
+      "type": "tool",
+      "sortid": 3,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinPlamieni",
+      "type": "tool",
+      "sortid": 4,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_plamieni",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinVoda",
+      "type": "tool",
+      "sortid": 5,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_voda",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinMolniya",
+      "type": "tool",
+      "sortid": 6,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_molniya",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinVeter",
+      "type": "tool",
+      "sortid": 7,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_veter",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinZmei",
+      "type": "tool",
+      "sortid": 8,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_zmei",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinLuna",
+      "type": "tool",
+      "sortid": 9,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_luna",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinGold",
+      "type": "tool",
+      "sortid": 10,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_gold",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinIguro",
+      "type": "tool",
+      "sortid": 11,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_iguro",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinAbly",
+      "type": "tool",
+      "sortid": 12,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_ably",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinKokushibo",
+      "type": "tool",
+      "sortid": 13,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_kokushibo",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinBambyk",
+      "type": "tool",
+      "sortid": 14,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_bambyk",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichiriBlackMolniya",
+      "type": "tool",
+      "sortid": 15,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichiri_black_molniya",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinKanae",
+      "type": "tool",
+      "sortid": 16,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_kanae",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinKanao",
+      "type": "tool",
+      "sortid": 17,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_kanao",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinKanroji",
+      "type": "tool",
+      "sortid": 18,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_kanroji",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinInosuke",
+      "type": "tool",
+      "sortid": 19,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_inosuke",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinRouz",
+      "type": "tool",
+      "sortid": 20,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_rouz",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinRengoku",
+      "type": "tool",
+      "sortid": 21,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_rengoku",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinShinobu",
+      "type": "tool",
+      "sortid": 22,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_shinobu",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinSanemi",
+      "type": "tool",
+      "sortid": 23,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_sanemi",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinKaygaku",
+      "type": "tool",
+      "sortid": 24,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_kaygaku",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinZver",
+      "type": "tool",
+      "sortid": 25,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_zver",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinTanjiro",
+      "type": "tool",
+      "sortid": 26,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_tanjiro",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinSvet",
+      "type": "tool",
+      "sortid": 27,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_svet",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinTengen",
+      "type": "tool",
+      "sortid": 28,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_tengen",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinZenizu",
+      "type": "tool",
+      "sortid": 29,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_zenizu",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinErichi",
+      "type": "tool",
+      "sortid": 30,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_erichi",
+      "path": "~/Nichirins"
+    },
+    {
+      "name": "NichirinTokito",
+      "type": "tool",
+      "sortid": 31,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nichirin_tokito",
+      "path": "~/Nichirins"
     }
   ],
   "variable_elements": [],
   "sound_elements": [],
   "language_map": {
-    "en_us": {}
+    "en_us": {
+      "item.nichirin_erichi.name": "Ничирин Еричи",
+      "item.nichiri_black_molniya.name": "Ничирин Черной молнии",
+      "item.nichirin_kanao.name": "Ничирин Канао",
+      "item.nichirin_luna.name": "Ничирин Луны",
+      "item.nichirin_rengoku.name": "Ничирин Ренгоку",
+      "item.nichirin_tengen.name": "Ничирин Тенгена",
+      "item.nichirin_zmei.name": "Ничирин Змеи",
+      "item.nichirin_zenizu.name": "Ничирин Зеницу",
+      "item.nichirin_bambyk.name": "Ничирин потом назаву как",
+      "item.nichirin_kokushibo.name": "Ничирин Кокушибо",
+      "item.nichirin_molniya.name": "Ничирин Молнии",
+      "item.nichirin_ably.name": "Ничирин ЧЕго то там напишу потом",
+      "itemGroup.tabnichirins": "Ничирины",
+      "item.nichirin_gold.name": "Золотой Ничирин",
+      "item.nichirin_kanroji.name": "Ничирин Канроджи",
+      "item.nichirin_svet.name": "Ничирин Тумана",
+      "item.nichirin_voda.name": "Ничирин Воды",
+      "item.nichirin_kaygaku.name": "Ничирин Кайгаку",
+      "item.nichirin_rouz.name": "Ничирин Цветка",
+      "item.nichirin_kanae.name": "Ничирирн Канаэ",
+      "item.nichirin_plamieni.name": "Ничирин Пламени",
+      "item.nichirin_inosuke.name": "Ничирин Иноске",
+      "item.nichirin_zver.name": "Ничирин Зверя",
+      "item.nichirin_sanemi.name": "Ничирин Санеми",
+      "item.nichirin_tokito.name": "Ничирин Муичиро",
+      "item.nichirin.name": "Ничирин",
+      "item.nichirin_tanjiro.name": "Ничирин Танжиро",
+      "item.nichirin_shinobu.name": "Ничирин Шинобу",
+      "item.nichirin_iguro.name": "Ничирин Обаная",
+      "item.nichirin_veter.name": "Ничирин Ветра"
+    }
   },
   "foldersRoot": {
     "name": "~",
-    "children": []
+    "children": [
+      {
+        "name": "Nichirins",
+        "children": []
+      }
+    ]
   },
   "workspaceSettings": {
     "modid": "krd_mod",

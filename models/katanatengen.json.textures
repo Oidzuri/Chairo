@@ -1,0 +1,11 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "0": "katanatengen",
+        "1": "katanatengen1"
+      },
+      "name": "default"
+    }
+  }
+}

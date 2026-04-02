@@ -1,0 +1,11 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "0": "katanastandart",
+        "1": "katanasver"
+      },
+      "name": "default"
+    }
+  }
+}
