@@ -1,0 +1,7 @@
+{
+  "parent": "krd_mod:custom/katanasver",
+  "textures": {
+    "0": "krd_mod:blocks/katanastandart",
+    "1": "krd_mod:blocks/katanasver"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "krd_mod:custom/katanayorichi",
+  "textures": {
+    "missing": "krd_mod:blocks/katanayorichi"
+  }
+}

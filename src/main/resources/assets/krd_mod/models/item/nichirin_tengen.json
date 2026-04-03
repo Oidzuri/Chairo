@@ -1,0 +1,7 @@
+{
+  "parent": "krd_mod:custom/katanatengen",
+  "textures": {
+    "0": "krd_mod:blocks/katanatengen",
+    "1": "krd_mod:blocks/katanatengen1"
+  }
+}

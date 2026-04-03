@@ -1,0 +1,6 @@
+{
+  "parent": "krd_mod:custom/katanakaygaku",
+  "textures": {
+    "0": "krd_mod:blocks/katanakaygaku"
+  }
+}

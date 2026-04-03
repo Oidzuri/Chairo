@@ -1,0 +1,6 @@
+{
+  "parent": "krd_mod:custom/katanashinotzugava",
+  "textures": {
+    "missing": "krd_mod:blocks/katanashinotzugava"
+  }
+}

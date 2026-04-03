@@ -1,0 +1,6 @@
+{
+  "parent": "krd_mod:custom/akula_water",
+  "textures": {
+    "0": "krd_mod:blocks/akula_water"
+  }
+}

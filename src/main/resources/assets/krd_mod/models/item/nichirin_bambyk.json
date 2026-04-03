@@ -1,0 +1,6 @@
+{
+  "parent": "krd_mod:custom/katanabambyk",
+  "textures": {
+    "missing": "krd_mod:blocks/katanabambyk"
+  }
+}

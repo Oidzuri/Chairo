@@ -1,0 +1,7 @@
+{
+  "parent": "krd_mod:custom/katanarouz",
+  "textures": {
+    "0": "krd_mod:blocks/katanarouz",
+    "1": "krd_mod:blocks/katanarouz"
+  }
+}
