@@ -1,5 +1,7 @@
 {
-  "id_map": {},
+  "id_map": {
+    "ENTITY": 2
+  },
   "mod_elements": [
     {
       "name": "KRDLogic",
@@ -309,6 +311,16 @@
       "ids": {},
       "registry_name": "nichirin_tokito",
       "path": "~/Nichirins"
+    },
+    {
+      "name": "Foods",
+      "type": "tab",
+      "sortid": 32,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "foods",
+      "path": "~/Foods"
     }
   ],
   "variable_elements": [],
@@ -325,6 +337,7 @@
       "item.nichirin_zmei.name": "Ничирин Змеи",
       "item.nichirin_bambyk.name": "Ничирин потом назаву как",
       "item.nichirin_kokushibo.name": "Ничирин Кокушибо",
+      "itemGroup.tabfoods": "Еда",
       "item.nichirin_molniya.name": "Ничирин Молнии",
       "item.nichirin_ably.name": "Ничирин ЧЕго то там напишу потом",
       "itemGroup.tabnichirins": "Ничирины",
@@ -352,6 +365,18 @@
     "children": [
       {
         "name": "Nichirins",
+        "children": []
+      },
+      {
+        "name": "Foods",
+        "children": []
+      },
+      {
+        "name": "Items",
+        "children": []
+      },
+      {
+        "name": "Mobs",
         "children": []
       }
     ]
