@@ -1,6 +1,6 @@
 {
   "id_map": {
-    "ENTITY": 2
+    "ENTITY": 6
   },
   "mod_elements": [
     {
@@ -321,6 +321,19 @@
       "ids": {},
       "registry_name": "foods",
       "path": "~/Foods"
+    },
+    {
+      "name": "Ddemonrang",
+      "type": "mob",
+      "sortid": 33,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 5,
+        "1": 6
+      },
+      "registry_name": "ddemonrang",
+      "path": "~/Mobs"
     }
   ],
   "variable_elements": [],
@@ -333,8 +346,8 @@
       "item.nichirin_luna.name": "Ничирин Луны",
       "item.nichirin_rengoku.name": "Ничирин Ренгоку",
       "item.nichirin_tengen.name": "Ничирин Тенгена",
-      "item.nichirin_zenizu.name": "Ничирин Зеницу",
       "item.nichirin_zmei.name": "Ничирин Змеи",
+      "item.nichirin_zenizu.name": "Ничирин Зеницу",
       "item.nichirin_bambyk.name": "Ничирин потом назаву как",
       "item.nichirin_kokushibo.name": "Ничирин Кокушибо",
       "itemGroup.tabfoods": "Еда",
@@ -353,6 +366,7 @@
       "item.nichirin_zver.name": "Ничирин Зверя",
       "item.nichirin_sanemi.name": "Ничирин Санеми",
       "item.nichirin_tokito.name": "Ничирин Муичиро",
+      "entity.ddemonrang.name": "Ddemonrang",
       "item.nichirin.name": "Ничирин",
       "item.nichirin_tanjiro.name": "Ничирин Танжиро",
       "item.nichirin_shinobu.name": "Ничирин Шинобу",
