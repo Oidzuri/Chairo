@@ -36,17 +36,17 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @ElementsKrdModMod.ModElement.Tag
-public class EntityJh extends ElementsKrdModMod.ModElement {
-	public static final int ENTITYID = 13;
-	public static final int ENTITYID_RANGED = 14;
-	public EntityJh(ElementsKrdModMod instance) {
-		super(instance, 33);
+public class EntityDemonship extends ElementsKrdModMod.ModElement {
+	public static final int ENTITYID = 19;
+	public static final int ENTITYID_RANGED = 20;
+	public EntityDemonship(ElementsKrdModMod instance) {
+		super(instance, 35);
 	}
 
 	@Override
 	public void initElements() {
-		elements.entities.add(() -> EntityEntryBuilder.create().entity(EntityCustom.class).id(new ResourceLocation("krd_mod", "jh"), ENTITYID)
-				.name("jh").tracker(64, 3, true).egg(-1, -1).build());
+		elements.entities.add(() -> EntityEntryBuilder.create().entity(EntityCustom.class).id(new ResourceLocation("krd_mod", "demonship"), ENTITYID)
+				.name("demonship").tracker(64, 3, true).egg(-1, -1).build());
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class EntityJh extends ElementsKrdModMod.ModElement {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		RenderingRegistry.registerEntityRenderingHandler(EntityCustom.class, renderManager -> {
-			return new RenderLiving(renderManager, new Modelmod_krd3(), 1f) {
+			return new RenderLiving(renderManager, new Modeldemon_shipy(), 0.5f) {
 				protected ResourceLocation getEntityTexture(Entity entity) {
 					return new ResourceLocation("krd_mod:textures/demon3.png");
 				}
@@ -77,7 +77,7 @@ public class EntityJh extends ElementsKrdModMod.ModElement {
 	public static class EntityCustom extends EntityMob {
 		public EntityCustom(World world) {
 			super(world);
-			setSize(1.1f, 2.8f);
+			setSize(1f, 2.8f);
 			experienceValue = 0;
 			this.isImmuneToFire = false;
 			setNoAI(!true);
@@ -140,15 +140,15 @@ public class EntityJh extends ElementsKrdModMod.ModElement {
 	// Made with Blockbench 5.1.3
 	// Exported for Minecraft version 1.7 - 1.12
 	// Paste this class into your mod and generate all required imports
-	public static class Modelmod_krd3 extends ModelBase {
+	public static class Modeldemon_shipy extends ModelBase {
 		private final ModelRenderer body;
 		private final ModelRenderer lower;
 		private final ModelRenderer cube_r1;
 		private final ModelRenderer upper;
 		private final ModelRenderer cube_r2;
-		private final ModelRenderer left_arm2;
-		private final ModelRenderer lower_r1;
+		private final ModelRenderer hands;
 		private final ModelRenderer left_arm;
+		private final ModelRenderer lower_r1;
 		private final ModelRenderer shipy2;
 		private final ModelRenderer bone2;
 		private final ModelRenderer cube_r3;
@@ -161,12 +161,11 @@ public class EntityJh extends ElementsKrdModMod.ModElement {
 		private final ModelRenderer cube_r5;
 		private final ModelRenderer bone;
 		private final ModelRenderer cube_r6;
-		private final ModelRenderer hands;
 		private final ModelRenderer head;
 		private final ModelRenderer head2;
-		private final ModelRenderer cube_r7;
-		private final ModelRenderer cube_r8;
-		private final ModelRenderer cube_r9;
+		private final ModelRenderer head3;
+		private final ModelRenderer cube_r9_r1;
+		private final ModelRenderer cube_r7_r1;
 		private final ModelRenderer hair;
 		private final ModelRenderer shipu;
 		private final ModelRenderer cube_r10;
@@ -180,7 +179,7 @@ public class EntityJh extends ElementsKrdModMod.ModElement {
 		private final ModelRenderer left_low_r1;
 		private final ModelRenderer right;
 		private final ModelRenderer right_r1;
-		public Modelmod_krd3() {
+		public Modeldemon_shipy() {
 			textureWidth = 128;
 			textureHeight = 128;
 			body = new ModelRenderer(this);
@@ -192,8 +191,8 @@ public class EntityJh extends ElementsKrdModMod.ModElement {
 			cube_r1.setRotationPoint(-0.625F, 20.825F, 0.0F);
 			lower.addChild(cube_r1);
 			setRotationAngle(cube_r1, -0.0524F, 0.0F, 0.0F);
-			cube_r1.cubeList.add(new ModelBox(cube_r1, 40, 40, -5.6125F, -0.55F, -1.475F, 6, 9, 6, 0.2F, true));
-			cube_r1.cubeList.add(new ModelBox(cube_r1, 40, 40, 0.3875F, -0.55F, -1.475F, 6, 9, 6, 0.2F, false));
+			cube_r1.cubeList.add(new ModelBox(cube_r1, 40, 40, -7.4125F, -0.2881F, -6.4681F, 6, 9, 6, 0.2F, true));
+			cube_r1.cubeList.add(new ModelBox(cube_r1, 40, 40, -1.4125F, -0.2881F, -6.4681F, 6, 9, 6, 0.2F, false));
 			upper = new ModelRenderer(this);
 			upper.setRotationPoint(1.75F, -54.375F, 5.35F);
 			body.addChild(upper);
@@ -201,24 +200,23 @@ public class EntityJh extends ElementsKrdModMod.ModElement {
 			cube_r2.setRotationPoint(0.0F, 21.25F, 0.0F);
 			upper.addChild(cube_r2);
 			setRotationAngle(cube_r2, 0.0524F, 0.0F, 0.0F);
-			cube_r2.cubeList.add(new ModelBox(cube_r2, 0, 75, -0.0625F, -0.5F, -2.75F, 6, 9, 6, 0.0F, false));
-			cube_r2.cubeList.add(new ModelBox(cube_r2, 0, 75, -6.0625F, -0.5F, -2.75F, 6, 9, 6, 0.0F, true));
-			left_arm2 = new ModelRenderer(this);
-			left_arm2.setRotationPoint(7.8104F, -31.43F, 6.325F);
-			body.addChild(left_arm2);
-			setRotationAngle(left_arm2, 0.0F, 0.0F, -0.1309F);
-			left_arm2.cubeList.add(new ModelBox(left_arm2, 0, 46, 0.1763F, -2.1412F, -4.0104F, 6, 11, 6, 0.0F, false));
-			lower_r1 = new ModelRenderer(this);
-			lower_r1.setRotationPoint(2.7288F, 8.2207F, -0.9329F);
-			left_arm2.addChild(lower_r1);
-			setRotationAngle(lower_r1, -0.384F, 0.0F, 0.0F);
-			lower_r1.cubeList.add(new ModelBox(lower_r1, 42, 63, -2.565F, -0.6251F, -3.1015F, 6, 7, 6, 0.0F, false));
+			cube_r2.cubeList.add(new ModelBox(cube_r2, 0, 75, -1.8625F, -0.7619F, -7.7431F, 6, 9, 6, 0.0F, false));
+			cube_r2.cubeList.add(new ModelBox(cube_r2, 0, 75, -7.8625F, -0.7619F, -7.7431F, 6, 9, 6, 0.0F, true));
+			hands = new ModelRenderer(this);
+			hands.setRotationPoint(0.125F, 0.0F, 0.0F);
+			body.addChild(hands);
 			left_arm = new ModelRenderer(this);
-			left_arm.setRotationPoint(-0.1041F, -22.2255F, 0.0F);
-			left_arm2.addChild(left_arm);
+			left_arm.setRotationPoint(4.6125F, -32.1F, 0.325F);
+			hands.addChild(left_arm);
 			setRotationAngle(left_arm, 0.0611F, 0.0F, -0.1745F);
+			left_arm.cubeList.add(new ModelBox(left_arm, 0, 46, 1.2816F, -1.3333F, -2.7002F, 6, 11, 6, 0.0F, false));
+			lower_r1 = new ModelRenderer(this);
+			lower_r1.setRotationPoint(9.6069F, -11.3542F, 5.3489F);
+			left_arm.addChild(lower_r1);
+			setRotationAngle(lower_r1, -0.384F, 0.0F, 0.0F);
+			lower_r1.cubeList.add(new ModelBox(lower_r1, 42, 63, -8.3377F, 20.1359F, -0.0755F, 6, 7, 6, 0.0F, false));
 			shipy2 = new ModelRenderer(this);
-			shipy2.setRotationPoint(-9.375F, -25.025F, -5.1625F);
+			shipy2.setRotationPoint(-2.601F, -45.8253F, 1.1193F);
 			left_arm.addChild(shipy2);
 			bone2 = new ModelRenderer(this);
 			bone2.setRotationPoint(17.05F, 30.5F, 5.9875F);
@@ -228,26 +226,26 @@ public class EntityJh extends ElementsKrdModMod.ModElement {
 			cube_r3.setRotationPoint(0.0F, 0.0F, 0.0F);
 			bone2.addChild(cube_r3);
 			setRotationAngle(cube_r3, 0.0F, 0.0F, 0.0436F);
-			cube_r3.cubeList.add(new ModelBox(cube_r3, 0, 24, 16.106F, 2.8485F, -3.8816F, 2, 3, 2, 0.0F, false));
-			cube_r3.cubeList.add(new ModelBox(cube_r3, 0, 24, 20.3844F, 3.9855F, -4.6526F, 2, 3, 2, 0.0F, false));
+			cube_r3.cubeList.add(new ModelBox(cube_r3, 0, 24, 14.9425F, 4.6044F, -7.8532F, 2, 3, 2, 0.0F, false));
+			cube_r3.cubeList.add(new ModelBox(cube_r3, 0, 24, 19.1209F, 4.7415F, -8.1242F, 2, 3, 2, 0.0F, false));
 			cube_r4 = new ModelRenderer(this);
 			cube_r4.setRotationPoint(-0.1375F, -2.75F, 0.1625F);
 			bone2.addChild(cube_r4);
 			setRotationAngle(cube_r4, 0.0F, 0.0F, 0.0436F);
-			cube_r4.cubeList.add(new ModelBox(cube_r4, 7, 32, 16.7935F, 3.836F, -3.5066F, 1, 2, 1, 0.0F, false));
-			cube_r4.cubeList.add(new ModelBox(cube_r4, 7, 31, 21.0719F, 4.673F, -4.2776F, 1, 2, 1, 0.0F, false));
+			cube_r4.cubeList.add(new ModelBox(cube_r4, 6, 31, 15.63F, 5.2919F, -7.4782F, 1, 2, 1, 0.0F, false));
+			cube_r4.cubeList.add(new ModelBox(cube_r4, 6, 31, 19.8084F, 5.429F, -7.7492F, 1, 2, 1, 0.0F, false));
 			right_arm = new ModelRenderer(this);
-			right_arm.setRotationPoint(-2.7987F, -32.6149F, 5.4212F);
-			body.addChild(right_arm);
+			right_arm.setRotationPoint(-5.9237F, -32.6149F, 0.4212F);
+			hands.addChild(right_arm);
 			setRotationAngle(right_arm, 0.0436F, -0.0008F, 0.192F);
-			right_arm.cubeList.add(new ModelBox(right_arm, 0, 46, -7.4786F, -0.6842F, -2.9585F, 6, 11, 6, 0.0F, true));
+			right_arm.cubeList.add(new ModelBox(right_arm, 0, 46, -6.3004F, -0.9131F, -2.9494F, 6, 11, 6, 0.0F, true));
 			lower_r2 = new ModelRenderer(this);
-			lower_r2.setRotationPoint(-6.3025F, 9.5506F, 0.0577F);
+			lower_r2.setRotationPoint(-6.3535F, -19.8035F, -0.9244F);
 			right_arm.addChild(lower_r2);
 			setRotationAngle(lower_r2, -0.384F, 0.0F, 0.0F);
-			lower_r2.cubeList.add(new ModelBox(lower_r2, 42, 63, -1.2177F, -0.189F, -2.9339F, 6, 7, 6, 0.0F, true));
+			lower_r2.cubeList.add(new ModelBox(lower_r2, 42, 63, 0.0114F, 26.4443F, 8.8957F, 6, 7, 6, 0.0F, true));
 			shipy3 = new ModelRenderer(this);
-			shipy3.setRotationPoint(-2.7468F, 8.8017F, -0.5353F);
+			shipy3.setRotationPoint(0.2022F, 8.4475F, 4.4827F);
 			right_arm.addChild(shipy3);
 			setRotationAngle(shipy3, 0.0095F, -0.3489F, -0.0279F);
 			bone6 = new ModelRenderer(this);
@@ -262,8 +260,8 @@ public class EntityJh extends ElementsKrdModMod.ModElement {
 			cube_r5.setRotationPoint(1.6738F, -19.687F, -7.3344F);
 			bone7.addChild(cube_r5);
 			setRotationAngle(cube_r5, 0.1313F, 0.0057F, 0.218F);
-			cube_r5.cubeList.add(new ModelBox(cube_r5, 0, 24, -5.2585F, 3.7919F, -1.7772F, 2, 3, 2, 0.0F, false));
-			cube_r5.cubeList.add(new ModelBox(cube_r5, 6, 31, -4.8284F, 6.738F, -1.2397F, 1, 2, 1, 0.0F, false));
+			cube_r5.cubeList.add(new ModelBox(cube_r5, 0, 24, -4.8194F, 5.9641F, -6.6072F, 2, 3, 2, 0.0F, false));
+			cube_r5.cubeList.add(new ModelBox(cube_r5, 6, 31, -4.3893F, 8.9102F, -6.0697F, 1, 2, 1, 0.0F, false));
 			bone = new ModelRenderer(this);
 			bone.setRotationPoint(1.9146F, 0.9255F, 0.1447F);
 			bone6.addChild(bone);
@@ -272,91 +270,87 @@ public class EntityJh extends ElementsKrdModMod.ModElement {
 			cube_r6.setRotationPoint(0.0F, 0.0F, 0.0F);
 			bone.addChild(cube_r6);
 			setRotationAngle(cube_r6, 0.3058F, 0.0057F, 0.1744F);
-			cube_r6.cubeList.add(new ModelBox(cube_r6, 0, 24, -7.2808F, 3.3998F, -0.2474F, 2, 3, 2, 0.0F, false));
-			cube_r6.cubeList.add(new ModelBox(cube_r6, 6, 31, -6.8506F, 6.3459F, 0.2901F, 1, 2, 1, 0.0F, false));
-			hands = new ModelRenderer(this);
-			hands.setRotationPoint(0.125F, 0.0F, 0.0F);
-			body.addChild(hands);
+			cube_r6.cubeList.add(new ModelBox(cube_r6, 0, 24, -6.5767F, 5.3229F, -5.1511F, 2, 3, 2, 0.0F, false));
+			cube_r6.cubeList.add(new ModelBox(cube_r6, 6, 31, -6.1465F, 8.269F, -4.6136F, 1, 2, 1, 0.0F, false));
 			head = new ModelRenderer(this);
 			head.setRotationPoint(1.2625F, 24.0F, 0.0F);
 			head2 = new ModelRenderer(this);
 			head2.setRotationPoint(-1.0125F, -58.625F, 0.0F);
 			head.addChild(head2);
-			head2.cubeList.add(new ModelBox(head2, 1, 23, -3.625F, 14.0F, 0.25F, 5, 11, 11, 0.0F, true));
-			head2.cubeList.add(new ModelBox(head2, 1, 23, 1.325F, 14.0F, 0.25F, 5, 11, 11, 0.0F, false));
-			cube_r7 = new ModelRenderer(this);
-			cube_r7.setRotationPoint(6.6375F, 23.25F, 0.875F);
-			head2.addChild(cube_r7);
-			setRotationAngle(cube_r7, 0.0F, 0.0F, 0.2182F);
-			cube_r7.cubeList.add(new ModelBox(cube_r7, 3, 65, -1.25F, -1.0F, -0.125F, 6, 2, 0, 0.0F, false));
-			cube_r8 = new ModelRenderer(this);
-			cube_r8.setRotationPoint(1.2625F, 23.45F, 0.0F);
-			head2.addChild(cube_r8);
-			setRotationAngle(cube_r8, 0.0F, 0.9599F, 1.5708F);
-			cube_r8.cubeList.add(new ModelBox(cube_r8, 3, 65, -1.55F, -1.0F, -0.125F, 7, 2, 0, 0.0F, false));
-			cube_r9 = new ModelRenderer(this);
-			cube_r9.setRotationPoint(-2.9875F, 23.0F, 1.125F);
-			head2.addChild(cube_r9);
-			setRotationAngle(cube_r9, 0.0503F, -0.1209F, -0.4394F);
-			cube_r9.cubeList.add(new ModelBox(cube_r9, 1, 65, -4.296F, -1.0789F, 0.1523F, 7, 2, 0, 0.0F, true));
+			head3 = new ModelRenderer(this);
+			head3.setRotationPoint(-2.05F, 58.625F, -5.0F);
+			head2.addChild(head3);
+			head3.cubeList.add(new ModelBox(head3, 1, 23, 1.675F, -44.625F, 0.25F, 5, 11, 11, 0.0F, false));
+			head3.cubeList.add(new ModelBox(head3, 1, 23, -3.275F, -44.625F, 0.25F, 5, 11, 11, 0.0F, true));
+			head3.cubeList.add(new ModelBox(head3, 4, 65, 6.5582F, -36.075F, 1.007F, 5, 2, 0, 0.0F, false));
+			cube_r9_r1 = new ModelRenderer(this);
+			cube_r9_r1.setRotationPoint(1.8F, -0.0524F, 5.9986F);
+			head3.addChild(cube_r9_r1);
+			setRotationAngle(cube_r9_r1, -1.5275F, 0.0057F, -0.1308F);
+			cube_r9_r1.cubeList.add(new ModelBox(cube_r9_r1, 4, 65, -4.547F, 2.193F, -35.8929F, 5, 2, 0, 0.0F, true));
+			cube_r7_r1 = new ModelRenderer(this);
+			cube_r7_r1.setRotationPoint(1.8F, -0.0524F, 5.9986F);
+			head3.addChild(cube_r7_r1);
+			setRotationAngle(cube_r7_r1, -3.1416F, 1.1781F, 1.693F);
+			cube_r7_r1.cubeList.add(new ModelBox(cube_r7_r1, 4, 65, -8.7879F, -5.4566F, 34.4621F, 5, 2, 0, 0.0F, false));
 			hair = new ModelRenderer(this);
 			hair.setRotationPoint(0.0F, 0.0F, 0.0F);
 			head.addChild(hair);
-			hair.cubeList.add(new ModelBox(hair, 79, 66, -0.6375F, -45.0F, 0.25F, 7, 19, 12, 0.0F, false));
-			hair.cubeList.add(new ModelBox(hair, 79, 66, -5.5125F, -45.0F, 0.25F, 7, 19, 12, 0.0F, true));
+			hair.cubeList.add(new ModelBox(hair, 79, 66, -2.4375F, -45.0F, -4.75F, 7, 19, 12, 0.0F, false));
+			hair.cubeList.add(new ModelBox(hair, 79, 66, -7.3125F, -45.0F, -4.75F, 7, 19, 12, 0.0F, true));
 			shipu = new ModelRenderer(this);
 			shipu.setRotationPoint(0.0F, 0.0F, 0.0F);
 			head.addChild(shipu);
 			cube_r10 = new ModelRenderer(this);
-			cube_r10.setRotationPoint(-3.6993F, -47.4469F, 2.1477F);
+			cube_r10.setRotationPoint(-3.6993F, -47.447F, 2.1477F);
 			shipu.addChild(cube_r10);
 			setRotationAngle(cube_r10, 0.0F, -0.4363F, 0.0F);
-			cube_r10.cubeList.add(new ModelBox(cube_r10, 6, 31, -0.475F, -2.2813F, -0.4813F, 1, 2, 1, 0.0F, false));
-			cube_r10.cubeList.add(new ModelBox(cube_r10, 0, 24, -1.025F, -0.2188F, -1.0188F, 2, 3, 2, 0.0F, false));
+			cube_r10.cubeList.add(new ModelBox(cube_r10, 6, 31, -4.2193F, -2.2813F, -4.2522F, 1, 2, 1, 0.0F, false));
+			cube_r10.cubeList.add(new ModelBox(cube_r10, 0, 24, -4.7693F, -0.2188F, -4.7897F, 2, 3, 2, 0.0F, false));
 			shipu3 = new ModelRenderer(this);
-			shipu3.setRotationPoint(3.9257F, -42.9469F, 2.1477F);
+			shipu3.setRotationPoint(3.9257F, -42.947F, 2.1477F);
 			head.addChild(shipu3);
 			setRotationAngle(shipu3, -0.0532F, 0.6102F, -0.0305F);
 			cube_r11 = new ModelRenderer(this);
 			cube_r11.setRotationPoint(0.0F, 0.0F, 0.0F);
 			shipu3.addChild(cube_r11);
 			setRotationAngle(cube_r11, 0.0F, -0.4363F, 0.0F);
-			cube_r11.cubeList.add(new ModelBox(cube_r11, 6, 31, -0.4409F, -6.777F, -0.6746F, 1, 2, 1, 0.0F, false));
-			cube_r11.cubeList.add(new ModelBox(cube_r11, 0, 24, -0.9909F, -4.7145F, -1.2121F, 2, 3, 2, 0.0F, false));
+			cube_r11.cubeList.add(new ModelBox(cube_r11, 6, 31, -1.346F, -6.5591F, -5.9066F, 1, 2, 1, 0.0F, false));
+			cube_r11.cubeList.add(new ModelBox(cube_r11, 0, 24, -1.896F, -4.4966F, -6.4441F, 2, 3, 2, 0.0F, false));
 			shipu2 = new ModelRenderer(this);
-			shipu2.setRotationPoint(0.3007F, -42.9469F, 2.1477F);
+			shipu2.setRotationPoint(0.3007F, -42.947F, 2.1477F);
 			head.addChild(shipu2);
 			setRotationAngle(shipu2, 0.0F, 0.3491F, 0.0F);
 			cube_r12 = new ModelRenderer(this);
 			cube_r12.setRotationPoint(0.0F, 0.0F, 0.0F);
 			shipu2.addChild(cube_r12);
 			setRotationAngle(cube_r12, 0.0F, -0.4363F, 0.0F);
-			cube_r12.cubeList.add(new ModelBox(cube_r12, 6, 31, -0.475F, -6.7813F, -0.4813F, 1, 2, 1, 0.0F, false));
-			cube_r12.cubeList.add(new ModelBox(cube_r12, 0, 24, -1.025F, -4.7188F, -1.0188F, 2, 3, 2, 0.0F, false));
+			cube_r12.cubeList.add(new ModelBox(cube_r12, 6, 31, -2.7036F, -6.7813F, -5.3055F, 1, 2, 1, 0.0F, false));
+			cube_r12.cubeList.add(new ModelBox(cube_r12, 0, 24, -3.2536F, -4.7188F, -5.843F, 2, 3, 2, 0.0F, false));
 			foot = new ModelRenderer(this);
 			foot.setRotationPoint(0.0F, 24.0F, 0.0F);
 			left = new ModelRenderer(this);
-			left.setRotationPoint(4.625F, -17.375F, 4.825F);
+			left.setRotationPoint(2.925F, -16.375F, 0.825F);
 			foot.addChild(left);
 			left_upp_r1 = new ModelRenderer(this);
-			left_upp_r1.setRotationPoint(0.0F, 1.5F, 0.0F);
+			left_upp_r1.setRotationPoint(1.7F, 0.5F, 4.0F);
 			left.addChild(left_upp_r1);
 			setRotationAngle(left_upp_r1, -0.0869F, -0.0076F, -0.085F);
-			left_upp_r1.cubeList.add(new ModelBox(left_upp_r1, 66, 23, -2.875F, -0.375F, -2.3625F, 6, 7, 6, 0.0F, false));
+			left_upp_r1.cubeList.add(new ModelBox(left_upp_r1, 66, 23, -4.7064F, -0.0945F, -7.3432F, 6, 7, 6, 0.0F, false));
 			left_low_r1 = new ModelRenderer(this);
-			left_low_r1.setRotationPoint(0.6875F, 7.7875F, -0.2875F);
+			left_low_r1.setRotationPoint(2.3875F, 6.7875F, 3.7125F);
 			left.addChild(left_low_r1);
 			setRotationAngle(left_low_r1, -0.0436F, 0.0F, 0.0F);
-			left_low_r1.cubeList.add(new ModelBox(left_low_r1, 48, 0, -3.0F, -0.125F, -2.625F, 6, 10, 6, 0.0F, false));
+			left_low_r1.cubeList.add(new ModelBox(left_low_r1, 48, 0, -4.8F, 0.0929F, -7.6202F, 6, 10, 6, 0.0F, false));
 			right = new ModelRenderer(this);
-			right.setRotationPoint(-1.25F, -15.8375F, 4.825F);
+			right.setRotationPoint(-3.55F, -15.8375F, 0.725F);
 			foot.addChild(right);
-			right.cubeList.add(new ModelBox(right, 48, 0, -3.725F, 6.0875F, -2.8F, 6, 10, 6, 0.0F, true));
+			right.cubeList.add(new ModelBox(right, 48, 0, -3.225F, 6.0875F, -3.7F, 6, 10, 6, 0.0F, true));
 			right_r1 = new ModelRenderer(this);
-			right_r1.setRotationPoint(0.0F, -0.5F, 0.0F);
+			right_r1.setRotationPoint(2.3F, -0.5F, 4.1F);
 			right.addChild(right_r1);
 			setRotationAngle(right_r1, -0.0869F, 0.0076F, 0.0888F);
-			right_r1.cubeList.add(new ModelBox(right_r1, 66, 23, -3.1305F, 0.125F, -2.2492F, 6, 7, 6, 0.0F, true));
+			right_r1.cubeList.add(new ModelBox(right_r1, 66, 23, -4.8854F, 0.7192F, -7.2299F, 6, 7, 6, 0.0F, true));
 		}
 
 		@Override
@@ -375,7 +369,7 @@ public class EntityJh extends ElementsKrdModMod.ModElement {
 		public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity e) {
 			super.setRotationAngles(f, f1, f2, f3, f4, f5, e);
 			this.right_arm.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * f1;
-			this.left_arm2.rotateAngleX = MathHelper.cos(f * 0.6662F) * f1;
+			this.left_arm.rotateAngleX = MathHelper.cos(f * 0.6662F) * f1;
 			this.right.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
 			this.left.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
 		}
