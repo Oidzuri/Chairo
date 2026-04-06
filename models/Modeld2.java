@@ -1,4 +1,4 @@
-// Made with Blockbench 5.1.2
+// Made with Blockbench 5.1.3
 // Exported for Minecraft version 1.7 - 1.12
 // Paste this class into your mod and generate all required imports
 
@@ -9,7 +9,6 @@ public static class Modeld2 extends ModelBase {
 	private final ModelRenderer upper_right_r1;
 	private final ModelRenderer armleft;
 	private final ModelRenderer lower_left_r1;
-	private final ModelRenderer upper_left_r1;
 	private final ModelRenderer leftFood;
 	private final ModelRenderer right_foot;
 
@@ -29,32 +28,26 @@ public static class Modeld2 extends ModelBase {
 		armright = new ModelRenderer(this);
 		armright.setRotationPoint(-0.9948F, -21.0765F, 0.755F);
 		body.addChild(armright);
-		armright.cubeList.add(new ModelBox(armright, 40, 33, -5.0612F, 3.8144F, -1.7273F, 4, 7, 4, 0.0F, false));
+		armright.cubeList.add(new ModelBox(armright, 40, 33, -5.0612F, 3.7144F, -1.7273F, 4, 7, 4, 0.0F, false));
 
 		upper_right_r1 = new ModelRenderer(this);
-		upper_right_r1.setRotationPoint(-3.0F, 4.0F, 1.0F);
+		upper_right_r1.setRotationPoint(0.0F, -0.1F, 0.4F);
 		armright.addChild(upper_right_r1);
 		setRotationAngle(upper_right_r1, 0.0436F, 0.0F, 0.0F);
 		upper_right_r1.cubeList
-				.add(new ModelBox(upper_right_r1, 40, 34, -2.0591F, -5.448F, -2.6717F, 4, 6, 4, 0.0F, false));
+				.add(new ModelBox(upper_right_r1, 40, 34, -5.0591F, -1.4256F, -2.2467F, 4, 6, 4, 0.0F, false));
 
 		armleft = new ModelRenderer(this);
-		armleft.setRotationPoint(5.2437F, -21.5F, 1.6929F);
+		armleft.setRotationPoint(5.2437F, -21.182F, 1.6929F);
 		body.addChild(armleft);
+		armleft.cubeList.add(new ModelBox(armleft, 40, 34, 0.5645F, -1.4903F, -2.8129F, 4, 6, 4, 0.0F, true));
 
 		lower_left_r1 = new ModelRenderer(this);
-		lower_left_r1.setRotationPoint(2.602F, 5.2584F, -0.9706F);
+		lower_left_r1.setRotationPoint(2.602F, 4.6584F, -0.9706F);
 		armleft.addChild(lower_left_r1);
 		setRotationAngle(lower_left_r1, -0.0317F, 0.0025F, -0.0235F);
 		lower_left_r1.cubeList
 				.add(new ModelBox(lower_left_r1, 40, 33, -2.03F, -0.2352F, -1.7914F, 4, 7, 4, 0.0F, true));
-
-		upper_left_r1 = new ModelRenderer(this);
-		upper_left_r1.setRotationPoint(0.0F, 0.0F, 0.0F);
-		armleft.addChild(upper_left_r1);
-		setRotationAngle(upper_left_r1, 0.0F, 0.0F, 0.0F);
-		upper_left_r1.cubeList
-				.add(new ModelBox(upper_left_r1, 40, 34, 0.5645F, -0.8903F, -2.8129F, 4, 6, 4, 0.0F, true));
 
 		leftFood = new ModelRenderer(this);
 		leftFood.setRotationPoint(4.132F, 12.9136F, 0.7177F);
@@ -63,8 +56,8 @@ public static class Modeld2 extends ModelBase {
 
 		right_foot = new ModelRenderer(this);
 		right_foot.setRotationPoint(-0.8035F, 13.0211F, 0.9759F);
-		right_foot.cubeList.add(new ModelBox(right_foot, 0, 33, -1.2805F, 0.1576F, -2.0352F, 4, 6, 4, 0.0F, false));
-		right_foot.cubeList.add(new ModelBox(right_foot, 0, 38, -1.3154F, 5.7591F, -1.9759F, 4, 5, 4, 0.0F, false));
+		right_foot.cubeList.add(new ModelBox(right_foot, 0, 33, -1.2805F, 0.1576F, -1.9352F, 4, 6, 4, 0.0F, false));
+		right_foot.cubeList.add(new ModelBox(right_foot, 0, 38, -1.3154F, 5.7591F, -1.8759F, 4, 5, 4, 0.0F, false));
 	}
 
 	@Override

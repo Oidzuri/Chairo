@@ -1,6 +1,6 @@
 {
   "id_map": {
-    "ENTITY": 6
+    "ENTITY": 16
   },
   "mod_elements": [
     {
@@ -323,16 +323,29 @@
       "path": "~/Foods"
     },
     {
-      "name": "Ddemonrang",
+      "name": "Jh",
       "type": "mob",
       "sortid": 33,
       "compiles": true,
       "locked_code": false,
       "ids": {
-        "0": 5,
-        "1": 6
+        "0": 13,
+        "1": 14
       },
-      "registry_name": "ddemonrang",
+      "registry_name": "jh",
+      "path": "~/Mobs"
+    },
+    {
+      "name": "Zeldemon",
+      "type": "mob",
+      "sortid": 34,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 15,
+        "1": 16
+      },
+      "registry_name": "zeldemon",
       "path": "~/Mobs"
     }
   ],
@@ -346,11 +359,13 @@
       "item.nichirin_luna.name": "Ничирин Луны",
       "item.nichirin_rengoku.name": "Ничирин Ренгоку",
       "item.nichirin_tengen.name": "Ничирин Тенгена",
+      "entity.jh.name": "Jh",
       "item.nichirin_zmei.name": "Ничирин Змеи",
       "item.nichirin_zenizu.name": "Ничирин Зеницу",
       "item.nichirin_bambyk.name": "Ничирин потом назаву как",
       "item.nichirin_kokushibo.name": "Ничирин Кокушибо",
       "itemGroup.tabfoods": "Еда",
+      "entity.zeldemon.name": "Zeldemon",
       "item.nichirin_molniya.name": "Ничирин Молнии",
       "item.nichirin_ably.name": "Ничирин ЧЕго то там напишу потом",
       "itemGroup.tabnichirins": "Ничирины",
@@ -366,7 +381,6 @@
       "item.nichirin_zver.name": "Ничирин Зверя",
       "item.nichirin_sanemi.name": "Ничирин Санеми",
       "item.nichirin_tokito.name": "Ничирин Муичиро",
-      "entity.ddemonrang.name": "Ddemonrang",
       "item.nichirin.name": "Ничирин",
       "item.nichirin_tanjiro.name": "Ничирин Танжиро",
       "item.nichirin_shinobu.name": "Ничирин Шинобу",
