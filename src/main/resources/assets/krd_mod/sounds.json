@@ -1,1 +1,22 @@
-{}
+{
+  "zvuj": {
+    "category": "music",
+    "subtitle": "subtitles.zvuj",
+    "sounds": [
+      {
+        "name": "krd_mod:zvuj",
+        "stream": true
+      }
+    ]
+  },
+  "click": {
+    "category": "music",
+    "subtitle": "subtitles.click",
+    "sounds": [
+      {
+        "name": "krd_mod:click",
+        "stream": true
+      }
+    ]
+  }
+}

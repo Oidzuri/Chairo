@@ -1,5 +1,6 @@
 {
   "id_map": {
+    "GUI": 1,
     "ENTITY": 2
   },
   "mod_elements": [
@@ -339,20 +340,47 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "mobs_stat"
+    },
+    {
+      "name": "EscapeMenu",
+      "type": "code",
+      "sortid": 35,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "escape_menu"
     }
   ],
   "variable_elements": [],
-  "sound_elements": [],
+  "sound_elements": [
+    {
+      "name": "zvuj",
+      "files": [
+        "zvuj"
+      ],
+      "category": "music",
+      "subtitle": "zvuk"
+    },
+    {
+      "name": "click",
+      "files": [
+        "click"
+      ],
+      "category": "music",
+      "subtitle": "Клик"
+    }
+  ],
   "language_map": {
     "en_us": {
       "item.nichirin_erichi.name": "Ничирин Еричи",
       "item.nichiri_black_molniya.name": "Ничирин Черной молнии",
       "item.nichirin_kanao.name": "Ничирин Канао",
+      "subtitles.click": "Клик",
       "item.nichirin_luna.name": "Ничирин Луны",
       "item.nichirin_rengoku.name": "Ничирин Ренгоку",
       "item.nichirin_tengen.name": "Ничирин Тенгена",
-      "item.nichirin_zenizu.name": "Ничирин Зеницу",
       "item.nichirin_zmei.name": "Ничирин Змеи",
+      "item.nichirin_zenizu.name": "Ничирин Зеницу",
       "item.nichirin_bambyk.name": "Ничирин потом назаву как",
       "item.nichirin_kokushibo.name": "Ничирин Кокушибо",
       "itemGroup.tabfoods": "Еда",
@@ -361,6 +389,7 @@
       "itemGroup.tabnichirins": "Ничирины",
       "item.nichirin_gold.name": "Золотой Ничирин",
       "item.nichirin_kanroji.name": "Ничирин Канроджи",
+      "subtitles.zvuj": "zvuk",
       "item.nichirin_svet.name": "Ничирин Тумана",
       "item.nichirin_voda.name": "Ничирин Воды",
       "item.nichirin_kaygaku.name": "Ничирин Кайгаку",

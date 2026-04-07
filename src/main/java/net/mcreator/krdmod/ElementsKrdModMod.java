@@ -54,6 +54,8 @@ public class ElementsKrdModMod implements IFuelHandler, IWorldGenerator {
 	public final List<Supplier<Potion>> potions = new ArrayList<>();
 	public static Map<ResourceLocation, net.minecraft.util.SoundEvent> sounds = new HashMap<>();
 	public ElementsKrdModMod() {
+		sounds.put(new ResourceLocation("krd_mod", "zvuj"), new net.minecraft.util.SoundEvent(new ResourceLocation("krd_mod", "zvuj")));
+		sounds.put(new ResourceLocation("krd_mod", "click"), new net.minecraft.util.SoundEvent(new ResourceLocation("krd_mod", "click")));
 	}
 
 	public void preInit(FMLPreInitializationEvent event) {
