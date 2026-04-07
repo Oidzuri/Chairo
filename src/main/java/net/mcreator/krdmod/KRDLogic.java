@@ -1,59 +1,37 @@
-/**
- * This mod element is always locked. Enter your code in the methods below.
- * If you don't need some of these methods, you can remove them as they
- * are overrides of the base class ElementsKrdModMod.ModElement.
- *
- * You can register new events in this class too.
- *
- * As this class is loaded into mod element list, it NEEDS to extend
- * ModElement class. If you remove this extend statement or remove the
- * constructor, the compilation will fail.
- *
- * If you want to make a plain independent class, create it in
- * "Workspace" -> "Source" menu.
- *
- * If you change workspace package, modid or prefix, you will need
- * to manually adapt this file to these changes or remake it.
-*/
 package net.mcreator.krdmod;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.World;
-
-import java.util.Random;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.util.math.MathHelper;
 
 @ElementsKrdModMod.ModElement.Tag
 public class KRDLogic extends ElementsKrdModMod.ModElement {
-	private final ResourceLocation xpTexture = new ResourceLocation("krd_mod:textures/gui/xp.png");
 	private final ResourceLocation golodTexture = new ResourceLocation("krd_mod:textures/gui/golod.png");
 	private final ResourceLocation opitTexture = new ResourceLocation("krd_mod:textures/gui/opit.png");
-	private final ResourceLocation xpbar1Texture = new ResourceLocation("krd_mod:textures/gui/xpbar1.png");
-	private final ResourceLocation xpbarpustxpTexture = new ResourceLocation("krd_mod:textures/gui/xpbarpustxp.png");
+	private final ResourceLocation hpTexture = new ResourceLocation("krd_mod:textures/gui/xp.png"); // Новая текстура для ХП
+	private final ResourceLocation logoTexture = new ResourceLocation("krd_mod:textures/gui/logo.png");
+	private final ResourceLocation barEmptyTexture = new ResourceLocation("krd_mod:textures/gui/xpbarpustxp.png");
+	private final ResourceLocation heartIcon = new ResourceLocation("krd_mod:textures/gui/heart.png");
+	private final ResourceLocation foodIcon = new ResourceLocation("krd_mod:textures/gui/food.png");
+	private final ResourceLocation expIcon = new ResourceLocation("krd_mod:textures/gui/exp_icon.png");
+
 	private float currentSpecialExp = 50.0F;
 	private float maxSpecialExp = 100.0F;
-	private int tempLevel = 1;
+	private int tempLevel = 15; 
 
-	/**
-	 * Do not remove this constructor
-	 */
+	private long lastDamageTime = 0, lastHealTime = 0, lastFoodGainTime = 0;
+	private float lastHealth = 20.0F;
+	private int lastFood = 20;
+
 	public KRDLogic(ElementsKrdModMod instance) {
 		super(instance, 1);
-	}
-
-	@Override
-	public void initElements() {
 	}
 
 	@Override
@@ -63,203 +41,131 @@ public class KRDLogic extends ElementsKrdModMod.ModElement {
 		}
 	}
 
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-	}
-
-	@Override
-	public void generateWorld(Random random, int posX, int posZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
-	}
-
-	@Override
-	public void serverLoad(FMLServerStartingEvent event) {
-	}
-
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-	}
-
 	@SideOnly(Side.CLIENT)
 	private class ClientHudRenderer {
 		@SubscribeEvent
 		public void onRenderGameOverlayPre(RenderGameOverlayEvent.Pre event) {
-			if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-				drawCustomHUD();
-			}
-
-			if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTH
-					|| event.getType() == RenderGameOverlayEvent.ElementType.FOOD
-					|| event.getType() == RenderGameOverlayEvent.ElementType.ARMOR
-					|| event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE
-					|| event.getType() == RenderGameOverlayEvent.ElementType.AIR) {
-				event.setCanceled(true);
-			}
+			if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) drawCustomHUD();
+			if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTH || event.getType() == RenderGameOverlayEvent.ElementType.FOOD
+					|| event.getType() == RenderGameOverlayEvent.ElementType.ARMOR || event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE
+					|| event.getType() == RenderGameOverlayEvent.ElementType.AIR) event.setCanceled(true);
 		}
 
 		private void drawCustomHUD() {
-			net.minecraft.client.Minecraft minecraft = net.minecraft.client.Minecraft.getMinecraft();
-			if (minecraft.player == null || minecraft.world == null) {
-				return;
+			net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getMinecraft();
+			if (mc.player == null) return;
+
+			float currentHp = mc.player.getHealth();
+			int currentFood = mc.player.getFoodStats().getFoodLevel();
+			if (currentHp < lastHealth) lastDamageTime = System.currentTimeMillis();
+			else if (currentHp > lastHealth) lastHealTime = System.currentTimeMillis();
+			if (currentFood > lastFood) lastFoodGainTime = System.currentTimeMillis();
+			lastHealth = currentHp; lastFood = currentFood;
+
+			float shakeX = 0, shakeY = 0;
+			long dt = System.currentTimeMillis() - lastDamageTime;
+			if (dt < 400) {
+				shakeX = (float) (Math.sin(dt * 0.5) * 2 * (1.0 - dt / 400.0));
+				shakeY = (float) (Math.cos(dt * 0.5) * 2 * (1.0 - dt / 400.0));
 			}
 
-			int marginX = 6;
-			int marginY = 6;
-			int textureWidth = 92;
-			int textureHeight = 10;
-			int logoSize = 32;
-			int x = marginX + logoSize + 8;
-			int nameTextX = x;
-			int nameTextY = marginY + 1;
-			int rankTextX = x;
-			int rankTextY = marginY + 11;
-			int healthY = marginY + 22;
-			int foodY = healthY + textureHeight + 3;
-			int expY = foodY + textureHeight + 3;
-			int inset = 2;
-			int innerWidth = textureWidth - inset * 2;
-			int innerHeight = textureHeight - inset * 2;
-			int blockLeft = marginX - 3;
-			int blockTop = marginY - 3;
-			int blockRight = x + textureWidth + 4;
-			int blockBottom = expY + textureHeight + 4;
+			int mX = (int) (12 + shakeX);
+			int mY = (int) (12 + shakeY);
+			int lSize = 38;
+			int bW = 90;  // Уменьшенная ширина
+			int bH = 9;   // Уменьшенная высота
+			int bX = mX + lSize + 20; 
+			int sY = mY + 20;
 
-			float currentHealth = minecraft.player.getHealth();
-			float maxHealth = minecraft.player.getMaxHealth();
-			float healthRatio = maxHealth > 0.0F ? currentHealth / maxHealth : 0.0F;
-			healthRatio = Math.max(0.0F, Math.min(1.0F, healthRatio));
+			GlStateManager.pushMatrix();
+			GlStateManager.enableBlend();
 
-			int currentFood = minecraft.player.getFoodStats().getFoodLevel();
-			int maxFood = 20;
-			float foodRatio = maxFood > 0 ? (float) currentFood / (float) maxFood : 0.0F;
-			foodRatio = Math.max(0.0F, Math.min(1.0F, foodRatio));
-
-			float expRatio = maxSpecialExp > 0.0F ? currentSpecialExp / maxSpecialExp : 0.0F;
-			expRatio = Math.max(0.0F, Math.min(1.0F, expRatio));
-
-			int healthWidth = Math.round(healthRatio * innerWidth);
-			int foodWidth = Math.round(foodRatio * innerWidth);
-			int expWidth = Math.round(expRatio * innerWidth);
-
-			float barTextScale = 0.75F;
-
-			net.minecraft.client.renderer.GlStateManager.pushMatrix();
-			net.minecraft.client.renderer.GlStateManager.enableBlend();
-			net.minecraft.client.renderer.GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-
-			// Dark panel to visually group the HUD.
-			net.minecraft.client.gui.Gui.drawRect(blockLeft, blockTop, blockRight, blockBottom, 0x5A000000);
-
-			// Fallback vector logo to avoid black-square texture issues.
-			net.minecraft.client.gui.Gui.drawRect(marginX, marginY, marginX + logoSize, marginY + logoSize, 0xFF1A2342);
-			net.minecraft.client.gui.Gui.drawRect(marginX + 2, marginY + 2, marginX + logoSize - 2, marginY + logoSize - 2, 0xFF0B0F1E);
-			minecraft.fontRenderer.drawStringWithShadow("KRD", marginX + 7, marginY + 12, 0xFF9FB6FF);
-
-			String playerName = minecraft.player.getName();
-			minecraft.fontRenderer.drawString(playerName, nameTextX, nameTextY, 0xFFFFFF);
-
-			// Here will be rank loaded from MySQL
-			String rankPlaceholder = "\u0420\u0430\u043D\u0433: ...";
-			String levelText = "\u0423\u0440\u043E\u0432\u0435\u043D\u044C:" + tempLevel;
-			net.minecraft.client.renderer.GlStateManager.pushMatrix();
-			net.minecraft.client.renderer.GlStateManager.scale(0.8F, 0.8F, 1.0F);
-			int scaledRankX = (int) (rankTextX / 0.8F);
-			int scaledRankY = (int) (rankTextY / 0.8F);
-			minecraft.fontRenderer.drawString(rankPlaceholder, scaledRankX, scaledRankY, 0xB0B0B0);
-			int scaledLevelX = scaledRankX + minecraft.fontRenderer.getStringWidth(rankPlaceholder) + 8;
-			minecraft.fontRenderer.drawString(levelText, scaledLevelX, scaledRankY, 0xB0B0B0);
-			net.minecraft.client.renderer.GlStateManager.popMatrix();
-
-			// HP background
-			drawTexture(minecraft, xpbarpustxpTexture, x, healthY, textureWidth, textureHeight);
-
-			// HP fill as plain color (no xp texture)
-			int healthR;
-			int healthG;
-			int healthB;
-			// Red -> Yellow -> Green, clean anchors (avoid dirty green)
-			if (healthRatio < 0.5F) {
-				float k = healthRatio / 0.5F;
-				healthR = 255;
-				healthG = Math.round(90.0F + (220.0F - 90.0F) * k);
-				healthB = Math.round(90.0F + (95.0F - 90.0F) * k);
-			} else {
-				float k = (healthRatio - 0.5F) / 0.5F;
-				healthR = Math.round(255.0F - (255.0F - 95.0F) * k);
-				healthG = Math.round(220.0F + (255.0F - 220.0F) * k);
-				healthB = Math.round(95.0F + (120.0F - 95.0F) * k);
+			int bgColor = 0xCC001A1A; 
+			float breath = (float) Math.sin(System.currentTimeMillis() / 600.0) * 0.2F + 0.8F;
+			int bCol = ((int)(255 * breath) << 24) | 0x008B8B; 
+			
+			if (currentHp / mc.player.getMaxHealth() < 0.3F) {
+				bCol = (0xFF << 24) | ((int)(150 + 105 * Math.sin(System.currentTimeMillis()/100.0)) << 16);
 			}
-			int healthFillColor = (0xCC << 24) | (healthR << 16) | (healthG << 8) | healthB;
-			if (healthWidth > 0) {
-				net.minecraft.client.gui.Gui.drawRect(x + inset, healthY + inset, x + inset + healthWidth, healthY + inset + innerHeight, healthFillColor);
-				// Tiny gradient at the top of the fill (instead of harsh glint)
-				int topR = Math.min(255, healthR + 40);
-				int topG = Math.min(255, healthG + 40);
-				int topB = Math.min(255, healthB + 40);
-				int grad1 = (0x55 << 24) | (topR << 16) | (topG << 8) | topB;
-				int grad2 = (0x22 << 24) | (topR << 16) | (topG << 8) | topB;
-				net.minecraft.client.gui.Gui.drawRect(x + inset, healthY + inset, x + inset + healthWidth, healthY + inset + 1, grad1);
-				net.minecraft.client.gui.Gui.drawRect(x + inset, healthY + inset + 1, x + inset + healthWidth, healthY + inset + 2, grad2);
-			}
+			
+			// Динамический фон под размер полосок
+			Gui.drawRect(mX - 6, mY - 6, bX + bW + 8, sY + (bH + 5) * 3 + 2, bgColor);
+			drawFrame(mX - 6, mY - 6, bX + bW + 8, sY + (bH + 5) * 3 + 2, bCol);
+			Gui.drawRect(mX + lSize + 6, mY - 2, mX + lSize + 7, sY + (bH + 5) * 3 - 2, 0x4400FFFF);
 
-			String healthText = (int) currentHealth + " / " + (int) maxHealth;
-			int healthTextLeft = x + (textureWidth / 2) - (int) (minecraft.fontRenderer.getStringWidth(healthText) / 2);
-			int healthTextTop = healthY + (textureHeight / 2) - minecraft.fontRenderer.FONT_HEIGHT / 2;
-			net.minecraft.client.renderer.GlStateManager.pushMatrix();
-			net.minecraft.client.renderer.GlStateManager.scale(barTextScale, barTextScale, 1.0F);
-			minecraft.fontRenderer.drawStringWithShadow(healthText, (int) (healthTextLeft / barTextScale), (int) (healthTextTop / barTextScale), 0xFFFFFF);
-			net.minecraft.client.renderer.GlStateManager.popMatrix();
+			// Лого
+			GlStateManager.color(1, 1, 1, 1);
+			mc.getTextureManager().bindTexture(logoTexture);
+			Gui.drawModalRectWithCustomSizedTexture(mX, mY, 0, 0, lSize, lSize, lSize, lSize);
 
-			// Food background + fill
-			drawTexture(minecraft, xpbarpustxpTexture, x, foodY, textureWidth, textureHeight);
-			if (foodWidth > 0) {
-				drawTexturePart(minecraft, golodTexture, x + inset, foodY + inset, foodWidth, innerHeight, textureWidth, textureHeight);
-				// subtle gradient at the top of the fill
-				int gradA = 0x2AFFFFFF;
-				net.minecraft.client.gui.Gui.drawRect(x + inset, foodY + inset, x + inset + foodWidth, foodY + inset + 1, gradA);
-				net.minecraft.client.gui.Gui.drawRect(x + inset, foodY + inset + 1, x + inset + foodWidth, foodY + inset + 2, 0x1AFFFFFF);
-			}
+			// Имя
+			mc.fontRenderer.drawStringWithShadow(mc.player.getName(), bX, mY - 4, 0xFFFFFF);
 
-			String foodText = currentFood + " / " + maxFood;
-			int foodTextLeft = x + (textureWidth / 2) - minecraft.fontRenderer.getStringWidth(foodText) / 2;
-			int foodTextTop = foodY + (textureHeight / 2) - minecraft.fontRenderer.FONT_HEIGHT / 2 + 1; // slightly down
-			net.minecraft.client.renderer.GlStateManager.pushMatrix();
-			net.minecraft.client.renderer.GlStateManager.scale(barTextScale, barTextScale, 1.0F);
-			minecraft.fontRenderer.drawStringWithShadow(foodText, (int) (foodTextLeft / barTextScale), (int) (foodTextTop / barTextScale), 0xFFFFFF);
-			net.minecraft.client.renderer.GlStateManager.popMatrix();
+			// Уровень и Ранг
+			GlStateManager.pushMatrix();
+			float infoScale = 0.8F; 
+			GlStateManager.scale(infoScale, infoScale, 1.0F);
+			int infoY = (int)((mY + 9) / infoScale);
+			int levelX = (int)(bX / infoScale);
+			String lvlTxt = "Уровень: " + tempLevel;
+			mc.fontRenderer.drawStringWithShadow(lvlTxt, levelX, infoY, 0x00FDFF);
+			int lvlWidth = mc.fontRenderer.getStringWidth(lvlTxt);
+			int rankX = levelX + lvlWidth + 12; 
+			mc.fontRenderer.drawStringWithShadow("Ранг: Мидзуното", rankX, infoY, 0xFFD700);
+			GlStateManager.popMatrix();
 
-			// Experience background + fill
-			drawTexture(minecraft, xpbarpustxpTexture, x, expY, textureWidth, textureHeight);
-			if (expWidth > 0) {
-				drawTexturePart(minecraft, opitTexture, x + inset, expY + inset, expWidth, innerHeight, textureWidth, textureHeight);
-				// subtle gradient at the top of the fill
-				net.minecraft.client.gui.Gui.drawRect(x + inset, expY + inset, x + inset + expWidth, expY + inset + 1, 0x2AFFFFFF);
-				net.minecraft.client.gui.Gui.drawRect(x + inset, expY + inset + 1, x + inset + expWidth, expY + inset + 2, 0x1AFFFFFF);
-			}
+			// Бары (HP теперь использует xp.png)
+			drawIcon(mc, bX - 14, sY + 1, 8, heartIcon);
+			renderBar(mc, bX, sY, bW, bH, currentHp/mc.player.getMaxHealth(), hpTexture, 0, (int)currentHp + "/" + (int)mc.player.getMaxHealth(), lastHealTime);
 
-			String expText = (int) currentSpecialExp + " / " + (int) maxSpecialExp;
-			int expTextLeft = x + (textureWidth / 2) - minecraft.fontRenderer.getStringWidth(expText) / 2;
-			int expTextTop = expY + (textureHeight / 2) - minecraft.fontRenderer.FONT_HEIGHT / 2 + 1; // slightly down
-			net.minecraft.client.renderer.GlStateManager.pushMatrix();
-			net.minecraft.client.renderer.GlStateManager.scale(barTextScale, barTextScale, 1.0F);
-			minecraft.fontRenderer.drawStringWithShadow(expText, (int) (expTextLeft / barTextScale), (int) (expTextTop / barTextScale), 0xFFFFFF);
-			net.minecraft.client.renderer.GlStateManager.popMatrix();
+			drawIcon(mc, bX - 14, sY + bH + 6, 8, foodIcon);
+			renderBar(mc, bX, sY + bH + 5, bW, bH, currentFood/20.0F, golodTexture, 0, currentFood + "/20", lastFoodGainTime);
 
-			net.minecraft.client.renderer.GlStateManager.disableBlend();
-			net.minecraft.client.renderer.GlStateManager.popMatrix();
+			drawIcon(mc, bX - 14, sY + (bH + 5) * 2 + 1, 8, expIcon);
+			renderBar(mc, bX, sY + (bH + 5) * 2, bW, bH, currentSpecialExp/maxSpecialExp, opitTexture, 0, (int)currentSpecialExp + " / " + (int)maxSpecialExp, 0);
+
+			GlStateManager.popMatrix();
 		}
 
-		private void drawTexture(net.minecraft.client.Minecraft minecraft, ResourceLocation texture, int x, int y, int width, int height) {
-			minecraft.getTextureManager().bindTexture(texture);
-			net.minecraft.client.gui.Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
+		private void renderBar(net.minecraft.client.Minecraft mc, int x, int y, int w, int h, float pct, ResourceLocation tex, int col, String txt, long uTime) {
+			mc.getTextureManager().bindTexture(barEmptyTexture);
+			Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, w, h, w, h);
+			int in = 1; // Уменьшил внутренний отступ для маленьких полосок
+			int fw = (int) ((w - (in * 2)) * pct);
+			if (fw > 0) {
+				if (tex != null) {
+					mc.getTextureManager().bindTexture(tex);
+					Gui.drawModalRectWithCustomSizedTexture(x + in, y + in, 0, 0, fw, h - (in * 2), w - (in * 2), h - (in * 2));
+				} else {
+					Gui.drawRect(x + in, y + in, x + in + fw, y + h - in, col);
+				}
+				
+				float fl = Math.max(0, 1.0F - (System.currentTimeMillis() - uTime) / 500.0F);
+				if (fl > 0) Gui.drawRect(x + in, y + in, x + in + fw, y + h - in, ((int)(fl * 160) << 24) | 0xFFFFFF);
+			}
+			
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(0.65F, 0.65F, 1.0F); // Текст в барах тоже чуть меньше
+			int tw = mc.fontRenderer.getStringWidth(txt);
+			mc.fontRenderer.drawStringWithShadow(txt, (x + w/2f)/0.65F - tw/2f, (y + h/2f)/0.65F - 3, 0xFFFFFF);
+			GlStateManager.popMatrix();
 		}
 
-		private void drawTexturePart(net.minecraft.client.Minecraft minecraft, ResourceLocation texture, int x, int y, int drawWidth, int drawHeight,
-				int textureWidth, int textureHeight) {
-			if (drawWidth <= 0 || drawHeight <= 0) {
-				return;
-			}
-			minecraft.getTextureManager().bindTexture(texture);
-			net.minecraft.client.gui.Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, drawWidth, drawHeight, textureWidth, textureHeight);
+		private void drawIcon(net.minecraft.client.Minecraft mc, int x, int y, int s, ResourceLocation r) {
+			mc.getTextureManager().bindTexture(r);
+			GlStateManager.color(1, 1, 1, 1);
+			Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, s, s, s, s);
+		}
+
+		private void drawFrame(int l, int t, int r, int b, int c) {
+			Gui.drawRect(l, t, r, t + 1, c); Gui.drawRect(l, b - 1, r, b, c);
+			Gui.drawRect(l, t, l + 1, b, c); Gui.drawRect(r - 1, t, r, b, c);
 		}
 	}
+	
+	@Override public void initElements() {}
+	@Override public void preInit(net.minecraftforge.fml.common.event.FMLPreInitializationEvent e) {}
+	@Override public void generateWorld(java.util.Random r, int x, int z, net.minecraft.world.World w, int d, net.minecraft.world.gen.IChunkGenerator cg, net.minecraft.world.chunk.IChunkProvider cp) {}
+	@Override public void serverLoad(net.minecraftforge.fml.common.event.FMLServerStartingEvent e) {}
+	@Override public void registerModels(net.minecraftforge.client.event.ModelRegistryEvent e) {}
 }

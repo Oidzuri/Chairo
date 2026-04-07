@@ -336,6 +336,19 @@
       "path": "~/Mobs"
     },
     {
+      "name": "Susamaru",
+      "type": "mob",
+      "sortid": 36,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 23,
+        "1": 24
+      },
+      "registry_name": "susamaru",
+      "path": "~/Mobs"
+    },
+    {
       "name": "Demonship",
       "type": "mob",
       "sortid": 35,
@@ -349,17 +362,22 @@
       "path": "~/Mobs"
     },
     {
-      "name": "Susamaru",
-      "type": "mob",
-      "sortid": 36,
+      "name": "MobsStat",
+      "type": "code",
+      "sortid": 34,
       "compiles": true,
-      "locked_code": false,
-      "ids": {
-        "0": 23,
-        "1": 24
-      },
-      "registry_name": "susamaru",
-      "path": "~/Mobs"
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "mobs_stat"
+    },
+    {
+      "name": "HotBar",
+      "type": "code",
+      "sortid": 33,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "hot_bar"
     }
   ],
   "variable_elements": [],
@@ -372,12 +390,11 @@
       "item.nichirin_luna.name": "Ничирин Луны",
       "item.nichirin_rengoku.name": "Ничирин Ренгоку",
       "item.nichirin_tengen.name": "Ничирин Тенгена",
-      "item.nichirin_zenizu.name": "Ничирин Зеницу",
       "item.nichirin_zmei.name": "Ничирин Змеи",
+      "item.nichirin_zenizu.name": "Ничирин Зеницу",
       "item.nichirin_bambyk.name": "Ничирин потом назаву как",
       "item.nichirin_kokushibo.name": "Ничирин Кокушибо",
       "itemGroup.tabfoods": "Еда",
-      "entity.zeldemon.name": "Zeldemon",
       "item.nichirin_molniya.name": "Ничирин Молнии",
       "item.nichirin_ably.name": "Ничирин ЧЕго то там напишу потом",
       "itemGroup.tabnichirins": "Ничирины",
@@ -387,7 +404,6 @@
       "item.nichirin_voda.name": "Ничирин Воды",
       "item.nichirin_kaygaku.name": "Ничирин Кайгаку",
       "item.nichirin_rouz.name": "Ничирин Цветка",
-      "entity.demonship.name": "Demonship",
       "item.nichirin_kanae.name": "Ничирирн Канаэ",
       "item.nichirin_plamieni.name": "Ничирин Пламени",
       "item.nichirin_inosuke.name": "Ничирин Иноске",
@@ -397,7 +413,6 @@
       "item.nichirin.name": "Ничирин",
       "item.nichirin_tanjiro.name": "Ничирин Танжиро",
       "item.nichirin_shinobu.name": "Ничирин Шинобу",
-      "entity.susamaru.name": "Susamaru",
       "item.nichirin_iguro.name": "Ничирин Обаная",
       "item.nichirin_veter.name": "Ничирин Ветра"
     }
@@ -406,7 +421,7 @@
     "name": "~",
     "children": [
       {
-        "name": "Nichirins",
+        "name": "Items",
         "children": []
       },
       {
@@ -414,11 +429,11 @@
         "children": []
       },
       {
-        "name": "Items",
+        "name": "Mobs",
         "children": []
       },
       {
-        "name": "Mobs",
+        "name": "Nichirins",
         "children": []
       }
     ]
