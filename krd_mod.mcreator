@@ -326,7 +326,7 @@
       "name": "Zeldemon",
       "type": "mob",
       "sortid": 34,
-      "compiles": true,
+      "compiles": false,
       "locked_code": false,
       "ids": {
         "0": 15,
@@ -339,7 +339,7 @@
       "name": "Susamaru",
       "type": "mob",
       "sortid": 36,
-      "compiles": true,
+      "compiles": false,
       "locked_code": false,
       "ids": {
         "0": 23,
@@ -352,7 +352,7 @@
       "name": "Demonship",
       "type": "mob",
       "sortid": 35,
-      "compiles": true,
+      "compiles": false,
       "locked_code": false,
       "ids": {
         "0": 19,
