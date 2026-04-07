@@ -55,7 +55,6 @@ sourceSets {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2855'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 apply from: 'mcreator.gradle'

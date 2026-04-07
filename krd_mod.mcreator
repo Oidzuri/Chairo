@@ -1,7 +1,6 @@
 {
   "id_map": {
-    "GUI": 1,
-    "ENTITY": 2
+    "ENTITY": 30
   },
   "mod_elements": [
     {
@@ -349,6 +348,45 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "escape_menu"
+    },
+    {
+      "name": "DSusamaru",
+      "type": "mob",
+      "sortid": 37,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 29,
+        "1": 30
+      },
+      "registry_name": "d_susamaru",
+      "path": "~/Mobs"
+    },
+    {
+      "name": "DShipy",
+      "type": "mob",
+      "sortid": 35,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 25,
+        "1": 26
+      },
+      "registry_name": "d_shipy",
+      "path": "~/Mobs"
+    },
+    {
+      "name": "DZelenyi",
+      "type": "mob",
+      "sortid": 36,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 27,
+        "1": 28
+      },
+      "registry_name": "d_zelenyi",
+      "path": "~/Mobs"
     }
   ],
   "variable_elements": [],
@@ -411,7 +449,7 @@
     "name": "~",
     "children": [
       {
-        "name": "Nichirins",
+        "name": "Items",
         "children": []
       },
       {
@@ -419,11 +457,11 @@
         "children": []
       },
       {
-        "name": "Items",
+        "name": "Mobs",
         "children": []
       },
       {
-        "name": "Mobs",
+        "name": "Nichirins",
         "children": []
       }
     ]
