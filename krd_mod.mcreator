@@ -1,6 +1,6 @@
 {
   "id_map": {
-    "ENTITY": 26
+    "ENTITY": 30
   },
   "mod_elements": [
     {
@@ -352,6 +352,32 @@
       },
       "registry_name": "d_shipy",
       "path": "~/Mobs"
+    },
+    {
+      "name": "DZelenyi",
+      "type": "mob",
+      "sortid": 36,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 27,
+        "1": 28
+      },
+      "registry_name": "d_zelenyi",
+      "path": "~/Mobs"
+    },
+    {
+      "name": "DSusamaru",
+      "type": "mob",
+      "sortid": 37,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 29,
+        "1": 30
+      },
+      "registry_name": "d_susamaru",
+      "path": "~/Mobs"
     }
   ],
   "variable_elements": [],
@@ -364,8 +390,8 @@
       "item.nichirin_luna.name": "Ничирин Луны",
       "item.nichirin_rengoku.name": "Ничирин Ренгоку",
       "item.nichirin_tengen.name": "Ничирин Тенгена",
-      "item.nichirin_zenizu.name": "Ничирин Зеницу",
       "item.nichirin_zmei.name": "Ничирин Змеи",
+      "item.nichirin_zenizu.name": "Ничирин Зеницу",
       "item.nichirin_bambyk.name": "Ничирин потом назаву как",
       "item.nichirin_kokushibo.name": "Ничирин Кокушибо",
       "itemGroup.tabfoods": "Еда",
@@ -376,8 +402,10 @@
       "entity.d_shipy.name": "D Shipy",
       "item.nichirin_kanroji.name": "Ничирин Канроджи",
       "item.nichirin_svet.name": "Ничирин Тумана",
+      "entity.d_zelenyi.name": "D Zelenyi",
       "item.nichirin_voda.name": "Ничирин Воды",
       "item.nichirin_kaygaku.name": "Ничирин Кайгаку",
+      "entity.d_susamaru.name": "D Susamaru",
       "item.nichirin_rouz.name": "Ничирин Цветка",
       "item.nichirin_kanae.name": "Ничирирн Канаэ",
       "item.nichirin_plamieni.name": "Ничирин Пламени",
