@@ -1,6 +1,6 @@
 {
   "id_map": {
-    "ENTITY": 22
+    "ENTITY": 24
   },
   "mod_elements": [
     {
@@ -355,8 +355,8 @@
       "compiles": true,
       "locked_code": false,
       "ids": {
-        "0": 21,
-        "1": 22
+        "0": 23,
+        "1": 24
       },
       "registry_name": "susamaru",
       "path": "~/Mobs"
@@ -372,8 +372,8 @@
       "item.nichirin_luna.name": "Ничирин Луны",
       "item.nichirin_rengoku.name": "Ничирин Ренгоку",
       "item.nichirin_tengen.name": "Ничирин Тенгена",
-      "item.nichirin_zenizu.name": "Ничирин Зеницу",
       "item.nichirin_zmei.name": "Ничирин Змеи",
+      "item.nichirin_zenizu.name": "Ничирин Зеницу",
       "item.nichirin_bambyk.name": "Ничирин потом назаву как",
       "item.nichirin_kokushibo.name": "Ничирин Кокушибо",
       "itemGroup.tabfoods": "Еда",
