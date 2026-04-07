@@ -1,6 +1,6 @@
 {
   "id_map": {
-    "ENTITY": 20
+    "ENTITY": 22
   },
   "mod_elements": [
     {
@@ -347,6 +347,19 @@
       },
       "registry_name": "demonship",
       "path": "~/Mobs"
+    },
+    {
+      "name": "Susamaru",
+      "type": "mob",
+      "sortid": 36,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 21,
+        "1": 22
+      },
+      "registry_name": "susamaru",
+      "path": "~/Mobs"
     }
   ],
   "variable_elements": [],
@@ -384,6 +397,7 @@
       "item.nichirin.name": "Ничирин",
       "item.nichirin_tanjiro.name": "Ничирин Танжиро",
       "item.nichirin_shinobu.name": "Ничирин Шинобу",
+      "entity.susamaru.name": "Susamaru",
       "item.nichirin_iguro.name": "Ничирин Обаная",
       "item.nichirin_veter.name": "Ничирин Ветра"
     }
