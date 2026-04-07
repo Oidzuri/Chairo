@@ -321,6 +321,24 @@
       "ids": {},
       "registry_name": "foods",
       "path": "~/Foods"
+    },
+    {
+      "name": "HotBar",
+      "type": "code",
+      "sortid": 33,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "hot_bar"
+    },
+    {
+      "name": "MobsStat",
+      "type": "code",
+      "sortid": 34,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "mobs_stat"
     }
   ],
   "variable_elements": [],
