@@ -1,12 +1,44 @@
 
 package net.mcreator.krdmod.entity;
 
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.World;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.DamageSource;
+import net.minecraft.item.Item;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.Entity;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.model.ModelBox;
+import net.minecraft.client.model.ModelBase;
+
+import net.mcreator.krdmod.ElementsKrdModMod;
+
+import java.util.Iterator;
+import java.util.ArrayList;
+
 @ElementsKrdModMod.ModElement.Tag
 public class EntityDZelenyi extends ElementsKrdModMod.ModElement {
-
 	public static final int ENTITYID = 27;
 	public static final int ENTITYID_RANGED = 28;
-
 	public EntityDZelenyi(ElementsKrdModMod instance) {
 		super(instance, 36);
 	}
@@ -21,7 +53,6 @@ public class EntityDZelenyi extends ElementsKrdModMod.ModElement {
 	public void init(FMLInitializationEvent event) {
 		Biome[] spawnBiomes = allbiomes(Biome.REGISTRY);
 		EntityRegistry.addSpawn(EntityCustom.class, 20, 4, 4, EnumCreatureType.MONSTER, spawnBiomes);
-
 	}
 
 	private Biome[] allbiomes(net.minecraft.util.registry.RegistryNamespaced<ResourceLocation, Biome> in) {
@@ -42,30 +73,24 @@ public class EntityDZelenyi extends ElementsKrdModMod.ModElement {
 				}
 			};
 		});
-
 	}
-
 	public static class EntityCustom extends EntityMob {
-
 		public EntityCustom(World world) {
 			super(world);
 			setSize(0.6f, 1.8f);
 			experienceValue = 0;
 			this.isImmuneToFire = false;
 			setNoAI(!true);
-
 		}
 
 		@Override
 		protected void initEntityAI() {
 			super.initEntityAI();
-
 			this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.2, false));
 			this.tasks.addTask(2, new EntityAIWander(this, 1));
 			this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
 			this.tasks.addTask(4, new EntityAILookIdle(this));
 			this.tasks.addTask(5, new EntityAISwimming(this));
-
 		}
 
 		@Override
@@ -101,7 +126,6 @@ public class EntityDZelenyi extends ElementsKrdModMod.ModElement {
 		@Override
 		protected void applyEntityAttributes() {
 			super.applyEntityAttributes();
-
 			if (this.getEntityAttribute(SharedMonsterAttributes.ARMOR) != null)
 				this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(0D);
 			if (this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED) != null)
@@ -110,15 +134,12 @@ public class EntityDZelenyi extends ElementsKrdModMod.ModElement {
 				this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10D);
 			if (this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE) != null)
 				this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3D);
-
 		}
-
 	}
 
 	// Made with Blockbench 5.1.3
 	// Exported for Minecraft version 1.7 - 1.12
 	// Paste this class into your mod and generate all required imports
-
 	public static class Modeld2 extends ModelBase {
 		private final ModelRenderer head;
 		private final ModelRenderer body;
@@ -128,47 +149,38 @@ public class EntityDZelenyi extends ElementsKrdModMod.ModElement {
 		private final ModelRenderer lower_left_r1;
 		private final ModelRenderer leftFood;
 		private final ModelRenderer right_foot;
-
 		public Modeld2() {
 			textureWidth = 64;
 			textureHeight = 64;
-
 			head = new ModelRenderer(this);
 			head.setRotationPoint(0.0F, 24.0F, 0.0F);
 			head.cubeList.add(new ModelBox(head, 0, 16, -2.0F, -30.7F, -3.0F, 8, 8, 8, 0.0F, false));
 			head.cubeList.add(new ModelBox(head, 32, 16, -2.0F, -30.8F, -3.0F, 8, 8, 8, 0.2F, false));
-
 			body = new ModelRenderer(this);
 			body.setRotationPoint(0.0F, 24.0F, 0.0F);
 			body.cubeList.add(new ModelBox(body, 16, 32, -2.0F, -22.7F, -1.0F, 8, 12, 4, 0.0F, false));
-
 			armright = new ModelRenderer(this);
 			armright.setRotationPoint(-0.9948F, -21.0765F, 0.755F);
 			body.addChild(armright);
 			armright.cubeList.add(new ModelBox(armright, 40, 33, -5.0612F, 3.7144F, -1.7273F, 4, 7, 4, 0.0F, false));
-
 			upper_right_r1 = new ModelRenderer(this);
 			upper_right_r1.setRotationPoint(0.0F, -0.1F, 0.4F);
 			armright.addChild(upper_right_r1);
 			setRotationAngle(upper_right_r1, 0.0436F, 0.0F, 0.0F);
 			upper_right_r1.cubeList.add(new ModelBox(upper_right_r1, 40, 34, -5.0591F, -1.4256F, -2.2467F, 4, 6, 4, 0.0F, false));
-
 			armleft = new ModelRenderer(this);
 			armleft.setRotationPoint(5.2437F, -21.182F, 1.6929F);
 			body.addChild(armleft);
 			armleft.cubeList.add(new ModelBox(armleft, 40, 34, 0.5645F, -1.4903F, -2.8129F, 4, 6, 4, 0.0F, true));
-
 			lower_left_r1 = new ModelRenderer(this);
 			lower_left_r1.setRotationPoint(2.602F, 4.6584F, -0.9706F);
 			armleft.addChild(lower_left_r1);
 			setRotationAngle(lower_left_r1, -0.0317F, 0.0025F, -0.0235F);
 			lower_left_r1.cubeList.add(new ModelBox(lower_left_r1, 40, 33, -2.03F, -0.2352F, -1.7914F, 4, 7, 4, 0.0F, true));
-
 			leftFood = new ModelRenderer(this);
 			leftFood.setRotationPoint(4.132F, 12.9136F, 0.7177F);
 			leftFood.cubeList.add(new ModelBox(leftFood, 0, 38, -1.9874F, 6.0165F, -1.5819F, 4, 5, 4, 0.0F, true));
 			leftFood.cubeList.add(new ModelBox(leftFood, 0, 33, -2.0019F, 0.132F, -1.6588F, 4, 6, 4, 0.0F, true));
-
 			right_foot = new ModelRenderer(this);
 			right_foot.setRotationPoint(-0.8035F, 13.0211F, 0.9759F);
 			right_foot.cubeList.add(new ModelBox(right_foot, 0, 33, -1.2805F, 0.1576F, -1.9352F, 4, 6, 4, 0.0F, false));
@@ -197,5 +209,4 @@ public class EntityDZelenyi extends ElementsKrdModMod.ModElement {
 			this.armleft.rotateAngleX = MathHelper.cos(f * 0.6662F) * f1;
 		}
 	}
-
 }

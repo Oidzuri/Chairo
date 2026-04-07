@@ -14,9 +14,9 @@ import net.minecraft.item.Item;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
-import net.mcreator.krdmod.creativetab.TabNichirins;
 import net.mcreator.krdmod.ElementsKrdModMod;
 
 import java.util.Set;
@@ -52,7 +52,7 @@ public class ItemNichiriBlackMolniya extends ElementsKrdModMod.ModElement {
 				ret.put("sword", 1);
 				return ret.keySet();
 			}
-		}.setUnlocalizedName("nichiri_black_molniya").setRegistryName("nichiri_black_molniya").setCreativeTab(TabNichirins.tab));
+		}.setUnlocalizedName("nichiri_black_molniya").setRegistryName("nichiri_black_molniya").setCreativeTab(CreativeTabs.TOOLS));
 	}
 
 	@SideOnly(Side.CLIENT)

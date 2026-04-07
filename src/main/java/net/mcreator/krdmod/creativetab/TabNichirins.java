@@ -7,13 +7,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraft.item.ItemStack;
 import net.minecraft.creativetab.CreativeTabs;
 
-import net.mcreator.krdmod.item.ItemNichirin;
+import net.mcreator.krdmod.item.ItemNichirinErichi;
 import net.mcreator.krdmod.ElementsKrdModMod;
 
 @ElementsKrdModMod.ModElement.Tag
 public class TabNichirins extends ElementsKrdModMod.ModElement {
 	public TabNichirins(ElementsKrdModMod instance) {
-		super(instance, 3);
+		super(instance, 38);
 	}
 
 	@Override
@@ -22,14 +22,14 @@ public class TabNichirins extends ElementsKrdModMod.ModElement {
 			@SideOnly(Side.CLIENT)
 			@Override
 			public ItemStack getTabIconItem() {
-				return new ItemStack(ItemNichirin.block, (int) (1));
+				return new ItemStack(ItemNichirinErichi.block, (int) (1));
 			}
 
 			@SideOnly(Side.CLIENT)
 			public boolean hasSearchBar() {
-				return false;
+				return true;
 			}
-		};
+		}.setBackgroundImageName("item_search.png");
 	}
 	public static CreativeTabs tab;
 }
