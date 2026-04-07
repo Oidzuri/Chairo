@@ -76,9 +76,5 @@ public static class Modeld2 extends ModelBase {
 
 	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity e) {
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, e);
-		this.armright.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * f1;
-		this.right_foot.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
-		this.leftFood.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
-		this.armleft.rotateAngleX = MathHelper.cos(f * 0.6662F) * f1;
 	}
 }

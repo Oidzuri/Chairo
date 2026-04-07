@@ -1,6 +1,6 @@
 {
   "id_map": {
-    "ENTITY": 24
+    "ENTITY": 26
   },
   "mod_elements": [
     {
@@ -323,45 +323,6 @@
       "path": "~/Foods"
     },
     {
-      "name": "Zeldemon",
-      "type": "mob",
-      "sortid": 34,
-      "compiles": false,
-      "locked_code": false,
-      "ids": {
-        "0": 15,
-        "1": 16
-      },
-      "registry_name": "zeldemon",
-      "path": "~/Mobs"
-    },
-    {
-      "name": "Susamaru",
-      "type": "mob",
-      "sortid": 36,
-      "compiles": false,
-      "locked_code": false,
-      "ids": {
-        "0": 23,
-        "1": 24
-      },
-      "registry_name": "susamaru",
-      "path": "~/Mobs"
-    },
-    {
-      "name": "Demonship",
-      "type": "mob",
-      "sortid": 35,
-      "compiles": false,
-      "locked_code": false,
-      "ids": {
-        "0": 19,
-        "1": 20
-      },
-      "registry_name": "demonship",
-      "path": "~/Mobs"
-    },
-    {
       "name": "MobsStat",
       "type": "code",
       "sortid": 34,
@@ -378,6 +339,19 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "hot_bar"
+    },
+    {
+      "name": "DShipy",
+      "type": "mob",
+      "sortid": 35,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 25,
+        "1": 26
+      },
+      "registry_name": "d_shipy",
+      "path": "~/Mobs"
     }
   ],
   "variable_elements": [],
@@ -390,8 +364,8 @@
       "item.nichirin_luna.name": "Ничирин Луны",
       "item.nichirin_rengoku.name": "Ничирин Ренгоку",
       "item.nichirin_tengen.name": "Ничирин Тенгена",
-      "item.nichirin_zmei.name": "Ничирин Змеи",
       "item.nichirin_zenizu.name": "Ничирин Зеницу",
+      "item.nichirin_zmei.name": "Ничирин Змеи",
       "item.nichirin_bambyk.name": "Ничирин потом назаву как",
       "item.nichirin_kokushibo.name": "Ничирин Кокушибо",
       "itemGroup.tabfoods": "Еда",
@@ -399,6 +373,7 @@
       "item.nichirin_ably.name": "Ничирин ЧЕго то там напишу потом",
       "itemGroup.tabnichirins": "Ничирины",
       "item.nichirin_gold.name": "Золотой Ничирин",
+      "entity.d_shipy.name": "D Shipy",
       "item.nichirin_kanroji.name": "Ничирин Канроджи",
       "item.nichirin_svet.name": "Ничирин Тумана",
       "item.nichirin_voda.name": "Ничирин Воды",
