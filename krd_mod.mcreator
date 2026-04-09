@@ -1,6 +1,6 @@
 {
   "id_map": {
-    "ENTITY": 30
+    "ENTITY": 42
   },
   "mod_elements": [
     {
@@ -367,6 +367,19 @@
       "ids": {},
       "registry_name": "nichirins",
       "path": "~/Nichirins"
+    },
+    {
+      "name": "Sam",
+      "type": "mob",
+      "sortid": 39,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 41,
+        "1": 42
+      },
+      "registry_name": "sam",
+      "path": "~/Mobs"
     }
   ],
   "variable_elements": [],
@@ -420,6 +433,7 @@
       "item.nichirin_zver.name": "Ничирин Зверя",
       "item.nichirin_sanemi.name": "Ничирин Санеми",
       "item.nichirin_tokito.name": "Ничирин Муичиро",
+      "entity.sam.name": "Sam",
       "item.nichirin_tanjiro.name": "Ничирин Танжиро",
       "item.nichirin_shinobu.name": "Ничирин Шинобу",
       "item.nichirin_iguro.name": "Ничирин Обаная",
