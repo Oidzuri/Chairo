@@ -56,6 +56,7 @@ public class ElementsKrdModMod implements IFuelHandler, IWorldGenerator {
 	public ElementsKrdModMod() {
 		sounds.put(new ResourceLocation("krd_mod", "zvuj"), new net.minecraft.util.SoundEvent(new ResourceLocation("krd_mod", "zvuj")));
 		sounds.put(new ResourceLocation("krd_mod", "click"), new net.minecraft.util.SoundEvent(new ResourceLocation("krd_mod", "click")));
+		sounds.put(new ResourceLocation("krd_mod", "hover"), new net.minecraft.util.SoundEvent(new ResourceLocation("krd_mod", "hover")));
 	}
 
 	public void preInit(FMLPreInitializationEvent event) {

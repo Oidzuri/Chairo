@@ -18,11 +18,15 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(value = Side.CLIENT)
 public class MobsStat extends Gui {
+    private static final int PANEL_FILL = 0xCC071018;
+    private static final int PANEL_GLOW = 0x6600E5FF;
+    private static final int TEXT_PRIMARY = 0xEAF7FF;
+    private static final int TEXT_SECONDARY = 0x9CBAC7;
+    private static final int CYAN_ACCENT = 0x63E6FF;
+    private static final int SAFE_ACCENT = 0x66E4A8;
+    private static final int DANGER_ACCENT = 0xFF6B6B;
 
     private static final ResourceLocation CUSTOM_CROSSHAIR = new ResourceLocation("krd_mod", "textures/gui/crosshair.png");
-    private static final ResourceLocation MOB_HP_BAR_LAYER = new ResourceLocation("krd_mod", "textures/gui/layer_for_mob_bar.png");
-    private static final ResourceLocation XP_BAR_EMPTY = new ResourceLocation("krd_mod", "textures/gui/xpbarpustxp.png");
-
     @SubscribeEvent
     public static void onRenderOverlayPre(RenderGameOverlayEvent.Pre event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
@@ -42,7 +46,7 @@ public class MobsStat extends Gui {
         if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
             Minecraft mc = Minecraft.getMinecraft();
             
-            // Увеличиваем радиус до 10 блоков с помощью кастомного поиска
+            // РЈРІРµР»РёС‡РёРІР°РµРј СЂР°РґРёСѓСЃ РґРѕ 10 Р±Р»РѕРєРѕРІ СЃ РїРѕРјРѕС‰СЊСЋ РєР°СЃС‚РѕРјРЅРѕРіРѕ РїРѕРёСЃРєР°
             Entity targetEntity = getMouseOverEntity(50.0D);
 
             if (targetEntity instanceof EntityLivingBase) {
@@ -53,51 +57,52 @@ public class MobsStat extends Gui {
                 String name = target.getName();
                 String hpText = hp + " / " + maxHp;
                 double distance = Math.round(mc.player.getDistance(target) * 10.0) / 10.0;
-                String threat = (target instanceof IMob) ? "§c[Угроза]" : "§a[Мирный]";
+                String threat = (target instanceof IMob) ? "В§c[РЈРіСЂРѕР·Р°]" : "В§a[РњРёСЂРЅС‹Р№]";
 
                 int sw = event.getResolution().getScaledWidth();
                 int sh = event.getResolution().getScaledHeight();
-                
-                // Настройки позиции (подняли выше: (sh / 2) - 80)
-                int barWidth = 120;
-                int barHeight = 45;
-                int barX = sw - barWidth - 10;
-                int barY = (sh / 2) - 80; 
 
-                // 1. Основная подложка
-                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                mc.getTextureManager().bindTexture(MOB_HP_BAR_LAYER);
-                Gui.drawModalRectWithCustomSizedTexture(barX, barY, 0, 0, barWidth, barHeight, barWidth, barHeight);
+                int panelWidth = 154;
+                int panelHeight = 56;
+                int panelX = sw - panelWidth - 14;
+                int panelY = (sh / 2) - 88;
 
-                // 2. Рамка для полоски ХП (xpbarpustxp.png)
-                int xpBarW = 100; // Ширина рамки
-                int xpBarH = 12;  // Высота рамки
-                int xpBarX = barX + 10;
-                int xpBarY = barY + 18;
-                mc.getTextureManager().bindTexture(XP_BAR_EMPTY);
-                Gui.drawModalRectWithCustomSizedTexture(xpBarX, xpBarY, 0, 0, xpBarW, xpBarH, xpBarW, xpBarH);
+                int hpBarX = panelX + 12;
+                int hpBarY = panelY + 23;
+                int hpBarW = panelWidth - 24;
+                int hpBarH = 9;
+                int fillWidth = Math.max(0, Math.min(hpBarW - 2, (int) Math.round((double) hp / Math.max(1, maxHp) * (hpBarW - 2))));
+                int hpColor = (target instanceof IMob) ? 0xFF5CE08B : 0xFF41C7FF;
 
-                // 3. Зеленая заливка внутри рамки
-                int innerMargin = 2; // Отступ, чтобы полоска была ВНУТРИ рамки
-                int maxFillWidth = xpBarW - (innerMargin * 2);
-                int currentFillWidth = (int) ((double) hp / maxHp * maxFillWidth);
-                if (currentFillWidth < 0) currentFillWidth = 0;
+                drawSoftPanel(panelX, panelY, panelWidth, panelHeight);
+                Gui.drawRect(panelX + 12, panelY + 18, panelX + panelWidth - 12, panelY + 19, 0x143EDFFF);
+                Gui.drawRect(hpBarX, hpBarY, hpBarX + hpBarW, hpBarY + hpBarH, 0x70000000);
+                Gui.drawRect(hpBarX + 1, hpBarY + 1, hpBarX + 1 + fillWidth, hpBarY + hpBarH - 1, hpColor);
+                Gui.drawRect(hpBarX + 1, hpBarY + 1, hpBarX + 1 + fillWidth, hpBarY + 2, 0x22FFFFFF);
 
-                // Рисуем саму полоску
-                Gui.drawRect(xpBarX + innerMargin, xpBarY + innerMargin, 
-                             xpBarX + innerMargin + currentFillWidth, xpBarY + xpBarH - innerMargin, 0xFF2ECC71);
+                mc.fontRenderer.drawStringWithShadow(name, panelX + 12, panelY + 8, TEXT_PRIMARY);
+                int hpTextWidth = mc.fontRenderer.getStringWidth(hpText);
+                mc.fontRenderer.drawStringWithShadow(hpText, panelX + panelWidth - hpTextWidth - 12, panelY + 8, TEXT_PRIMARY);
 
-                // 4. Текст
-                mc.fontRenderer.drawStringWithShadow(name, barX + 10, barY + 6, 0xFFFFAA);
-                int tw = mc.fontRenderer.getStringWidth(hpText);
-                mc.fontRenderer.drawStringWithShadow(hpText, barX + barWidth - tw - 10, barY + 6, 0xFFFFFF);
-                mc.fontRenderer.drawStringWithShadow(threat + " §7" + distance + "m", barX + 10, barY + 32, 0xFFFFFF);
+                String threatText = (target instanceof IMob) ? "[РЈРіСЂРѕР·Р°]" : "[РњРёСЂРЅС‹Р№]";
+                int threatColor = (target instanceof IMob) ? DANGER_ACCENT : SAFE_ACCENT;
+                mc.fontRenderer.drawStringWithShadow(threatText, panelX + 12, panelY + 38, threatColor);
+                String distanceText = distance + "m";
+                mc.fontRenderer.drawStringWithShadow(distanceText, panelX + panelWidth - mc.fontRenderer.getStringWidth(distanceText) - 12, panelY + 38, TEXT_SECONDARY);
             }
         }
     }
 
+    private static void drawSoftPanel(int x, int y, int w, int h) {
+        Gui.drawRect(x, y, x + w, y + h, PANEL_FILL);
+        Gui.drawRect(x, y, x + w, y + 1, PANEL_GLOW);
+        Gui.drawRect(x, y + h - 1, x + w, y + h, 0x160F2E38);
+        Gui.drawRect(x, y, x + 1, y + h, 0x1200DFFF);
+        Gui.drawRect(x + w - 1, y, x + w, y + h, 0x1200DFFF);
+    }
+
     /**
-     * Метод для поиска сущности на дистанции больше стандартной
+     * РњРµС‚РѕРґ РґР»СЏ РїРѕРёСЃРєР° СЃСѓС‰РЅРѕСЃС‚Рё РЅР° РґРёСЃС‚Р°РЅС†РёРё Р±РѕР»СЊС€Рµ СЃС‚Р°РЅРґР°СЂС‚РЅРѕР№
      */
     private static Entity getMouseOverEntity(double distance) {
         Minecraft mc = Minecraft.getMinecraft();

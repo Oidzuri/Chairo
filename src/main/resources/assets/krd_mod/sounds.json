@@ -18,5 +18,15 @@
         "stream": true
       }
     ]
+  },
+  "hover": {
+    "category": "master",
+    "subtitle": "subtitles.hover",
+    "sounds": [
+      {
+        "name": "krd_mod:hover",
+        "stream": false
+      }
+    ]
   }
 }

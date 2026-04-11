@@ -15,7 +15,7 @@ import net.minecraft.util.math.MathHelper;
 public class KRDLogic extends ElementsKrdModMod.ModElement {
 	private final ResourceLocation golodTexture = new ResourceLocation("krd_mod:textures/gui/golod.png");
 	private final ResourceLocation opitTexture = new ResourceLocation("krd_mod:textures/gui/opit.png");
-	private final ResourceLocation hpTexture = new ResourceLocation("krd_mod:textures/gui/xp.png"); // Новая текстура для ХП
+	private final ResourceLocation hpTexture = new ResourceLocation("krd_mod:textures/gui/xp.png"); // РќРѕРІР°СЏ С‚РµРєСЃС‚СѓСЂР° РґР»СЏ РҐРџ
 	private final ResourceLocation logoTexture = new ResourceLocation("krd_mod:textures/gui/logo.png");
 	private final ResourceLocation barEmptyTexture = new ResourceLocation("krd_mod:textures/gui/xpbarpustxp.png");
 	private final ResourceLocation heartIcon = new ResourceLocation("krd_mod:textures/gui/heart.png");
@@ -72,13 +72,18 @@ public class KRDLogic extends ElementsKrdModMod.ModElement {
 			int mX = (int) (12 + shakeX);
 			int mY = (int) (12 + shakeY);
 			int lSize = 38;
-			int bW = 90;  // Уменьшенная ширина
-			int bH = 9;   // Уменьшенная высота
+			int bW = 90;  // РЈРјРµРЅСЊС€РµРЅРЅР°СЏ С€РёСЂРёРЅР°
+			int bH = 9;   // РЈРјРµРЅСЊС€РµРЅРЅР°СЏ РІС‹СЃРѕС‚Р°
 			int bX = mX + lSize + 20; 
 			int sY = mY + 20;
 
 			GlStateManager.pushMatrix();
 			GlStateManager.enableBlend();
+			GlStateManager.enableAlpha();
+			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
+					GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+					GlStateManager.SourceFactor.ONE,
+					GlStateManager.DestFactor.ZERO);
 
 			int bgColor = 0xCC001A1A; 
 			float breath = (float) Math.sin(System.currentTimeMillis() / 600.0) * 0.2F + 0.8F;
@@ -88,33 +93,33 @@ public class KRDLogic extends ElementsKrdModMod.ModElement {
 				bCol = (0xFF << 24) | ((int)(150 + 105 * Math.sin(System.currentTimeMillis()/100.0)) << 16);
 			}
 			
-			// Динамический фон под размер полосок
+			// Р”РёРЅР°РјРёС‡РµСЃРєРёР№ С„РѕРЅ РїРѕРґ СЂР°Р·РјРµСЂ РїРѕР»РѕСЃРѕРє
 			Gui.drawRect(mX - 6, mY - 6, bX + bW + 8, sY + (bH + 5) * 3 + 2, bgColor);
 			drawFrame(mX - 6, mY - 6, bX + bW + 8, sY + (bH + 5) * 3 + 2, bCol);
 			Gui.drawRect(mX + lSize + 6, mY - 2, mX + lSize + 7, sY + (bH + 5) * 3 - 2, 0x4400FFFF);
 
-			// Лого
+			// Р›РѕРіРѕ
 			GlStateManager.color(1, 1, 1, 1);
 			mc.getTextureManager().bindTexture(logoTexture);
 			Gui.drawModalRectWithCustomSizedTexture(mX, mY, 0, 0, lSize, lSize, lSize, lSize);
 
-			// Имя
+			// РРјСЏ
 			mc.fontRenderer.drawStringWithShadow(mc.player.getName(), bX, mY - 4, 0xFFFFFF);
 
-			// Уровень и Ранг
+			// РЈСЂРѕРІРµРЅСЊ Рё Р Р°РЅРі
 			GlStateManager.pushMatrix();
 			float infoScale = 0.8F; 
 			GlStateManager.scale(infoScale, infoScale, 1.0F);
 			int infoY = (int)((mY + 9) / infoScale);
 			int levelX = (int)(bX / infoScale);
-			String lvlTxt = "Уровень: " + tempLevel;
+			String lvlTxt = "РЈСЂРѕРІРµРЅСЊ: " + tempLevel;
 			mc.fontRenderer.drawStringWithShadow(lvlTxt, levelX, infoY, 0x00FDFF);
 			int lvlWidth = mc.fontRenderer.getStringWidth(lvlTxt);
 			int rankX = levelX + lvlWidth + 12; 
-			mc.fontRenderer.drawStringWithShadow("Ранг: Мидзуното", rankX, infoY, 0xFFD700);
+			mc.fontRenderer.drawStringWithShadow("Р Р°РЅРі: РњРёРґР·СѓРЅРѕС‚Рѕ", rankX, infoY, 0xFFD700);
 			GlStateManager.popMatrix();
 
-			// Бары (HP теперь использует xp.png)
+			// Р‘Р°СЂС‹ (HP С‚РµРїРµСЂСЊ РёСЃРїРѕР»СЊР·СѓРµС‚ xp.png)
 			drawIcon(mc, bX - 14, sY + 1, 8, heartIcon);
 			renderBar(mc, bX, sY, bW, bH, currentHp/mc.player.getMaxHealth(), hpTexture, 0, (int)currentHp + "/" + (int)mc.player.getMaxHealth(), lastHealTime);
 
@@ -124,13 +129,14 @@ public class KRDLogic extends ElementsKrdModMod.ModElement {
 			drawIcon(mc, bX - 14, sY + (bH + 5) * 2 + 1, 8, expIcon);
 			renderBar(mc, bX, sY + (bH + 5) * 2, bW, bH, currentSpecialExp/maxSpecialExp, opitTexture, 0, (int)currentSpecialExp + " / " + (int)maxSpecialExp, 0);
 
+			GlStateManager.disableBlend();
 			GlStateManager.popMatrix();
 		}
 
 		private void renderBar(net.minecraft.client.Minecraft mc, int x, int y, int w, int h, float pct, ResourceLocation tex, int col, String txt, long uTime) {
 			mc.getTextureManager().bindTexture(barEmptyTexture);
 			Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, w, h, w, h);
-			int in = 1; // Уменьшил внутренний отступ для маленьких полосок
+			int in = 1; // РЈРјРµРЅСЊС€РёР» РІРЅСѓС‚СЂРµРЅРЅРёР№ РѕС‚СЃС‚СѓРї РґР»СЏ РјР°Р»РµРЅСЊРєРёС… РїРѕР»РѕСЃРѕРє
 			int fw = (int) ((w - (in * 2)) * pct);
 			if (fw > 0) {
 				if (tex != null) {
@@ -145,7 +151,7 @@ public class KRDLogic extends ElementsKrdModMod.ModElement {
 			}
 			
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.65F, 0.65F, 1.0F); // Текст в барах тоже чуть меньше
+			GlStateManager.scale(0.65F, 0.65F, 1.0F); // РўРµРєСЃС‚ РІ Р±Р°СЂР°С… С‚РѕР¶Рµ С‡СѓС‚СЊ РјРµРЅСЊС€Рµ
 			int tw = mc.fontRenderer.getStringWidth(txt);
 			mc.fontRenderer.drawStringWithShadow(txt, (x + w/2f)/0.65F - tw/2f, (y + h/2f)/0.65F - 3, 0xFFFFFF);
 			GlStateManager.popMatrix();

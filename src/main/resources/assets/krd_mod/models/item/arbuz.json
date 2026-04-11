@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "krd_mod:items/arbyzik"
+  }
+}

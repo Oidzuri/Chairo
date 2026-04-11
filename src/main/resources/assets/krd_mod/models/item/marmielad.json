@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "krd_mod:items/5a47fe9ec1276160a93a9c47"
+  }
+}

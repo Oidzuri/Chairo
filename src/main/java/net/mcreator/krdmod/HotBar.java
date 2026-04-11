@@ -15,16 +15,15 @@ import net.minecraft.entity.player.EntityPlayer;
 @Mod.EventBusSubscriber(value = Side.CLIENT)
 public class HotBar extends Gui {
 
-    // ВАЖНО: Замени "твой_modid" на реальный ID твоего мода!
-    // Также проверь путь до текстур. В MCreator они обычно лежат в textures/ или textures/gui/
+    // Verify the mod id and texture paths if you move these files later.
     private static final ResourceLocation SLOT_NORMAL = new ResourceLocation("krd_mod", "textures/gui/interfeisitem.png");
     private static final ResourceLocation SLOT_SELECTED = new ResourceLocation("krd_mod", "textures/gui/interfeisitem1.png");
 
     @SubscribeEvent
     public static void onRenderOverlay(RenderGameOverlayEvent.Pre event) {
-        // Проверяем, что сейчас рисуется именно хотбар
+        // Only replace the vanilla hotbar layer.
         if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR) {
-            // Отключаем ванильный хотбар
+            // Hide vanilla hotbar rendering.
             event.setCanceled(true);
 
             Minecraft mc = Minecraft.getMinecraft();
@@ -34,57 +33,55 @@ public class HotBar extends Gui {
             int screenWidth = event.getResolution().getScaledWidth();
             int screenHeight = event.getResolution().getScaledHeight();
 
-            // Задаем размер твоей иконки слота (допустим, 22x22 пикселя)
+            // Custom slot size.
             int slotSize = 22; 
-            // Вычисляем начальную точку по X, чтобы хотбар был по центру
+            // Center the bar horizontally.
             int startX = screenWidth / 2 - (9 * slotSize) / 2;
             int y = screenHeight - slotSize - 2;
 
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.enableAlpha();
 
-            // 1. Отрисовка фонов для 9 слотов
+            // 1. Draw slot backgrounds.
             for (int i = 0; i < 9; i++) {
                 int x = startX + i * slotSize;
                 
-                // Проверяем, выбран ли текущий слот
+                // Highlight the selected slot.
                 if (player.inventory.currentItem == i) {
                     mc.getTextureManager().bindTexture(SLOT_SELECTED);
                 } else {
                     mc.getTextureManager().bindTexture(SLOT_NORMAL);
                 }
                 
-                // Рисуем текстуру. Параметры: x, y, u, v, ширина, высота, ширина текстуры, высота текстуры
+                // Draw slot texture.
                 Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, slotSize, slotSize, slotSize, slotSize);
             }
 
-            // 2. Отрисовка слота для левой руки (Offhand)
+            // 2. Draw offhand slot.
             ItemStack offhandStack = player.getHeldItemOffhand();
             if (!offhandStack.isEmpty()) {
-                int offhandX = startX - slotSize - 10; // Сдвигаем влево от основного хотбара с отступом
+                int offhandX = startX - slotSize - 10;
                 mc.getTextureManager().bindTexture(SLOT_NORMAL);
                 Gui.drawModalRectWithCustomSizedTexture(offhandX, y, 0, 0, slotSize, slotSize, slotSize, slotSize);
 
-                // Отрисовка предмета в левой руке
                 renderItem(mc, offhandStack, offhandX + 3, y + 3); 
             }
 
-            // 3. Отрисовка самих предметов поверх слотов
+            // 3. Draw items on top.
             for (int i = 0; i < 9; i++) {
                 int x = startX + i * slotSize;
                 ItemStack stack = player.inventory.mainInventory.get(i);
                 if (!stack.isEmpty()) {
-                    // +3 используется для центрирования предмета (он обычно 16x16) внутри слота 22x22
                     renderItem(mc, stack, x + 3, y + 3); 
                 }
             }
         }
     }
 
-    // Метод для корректной отрисовки 3D/2D предметов в интерфейсе
+    // Render a stack with item lighting enabled.
     private static void renderItem(Minecraft mc, ItemStack stack, int x, int y) {
         GlStateManager.pushMatrix();
-        RenderHelper.enableGUIStandardItemLighting(); // Включаем свет, чтобы кастомные 3D модели не были черными
+        RenderHelper.enableGUIStandardItemLighting();
         mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
         mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRenderer, stack, x, y, null);
         RenderHelper.disableStandardItemLighting();
