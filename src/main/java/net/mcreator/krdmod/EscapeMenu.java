@@ -535,7 +535,7 @@ public class EscapeMenu extends GuiScreen {
     private void drawLeftGroupLabels() {
         String actions = "ДЕЙСТВИЯ";
         String settings = "НАСТРОЙКИ";
-        MENU_FONT.drawString(actions, leftMenuX + 6, actionsLabelY, CYAN_ACCENT);
+        MENU_FONT.drawString(actions, leftMenuX + 8, actionsLabelY, CYAN_ACCENT);
         MENU_FONT.drawString(settings, leftMenuX + 6, settingsLabelY, settingsExpanded ? CYAN_ACCENT : TEXT_SECONDARY);
         drawRect(leftMenuX + 6, actionsLabelY + 12, leftMenuX + 92, actionsLabelY + 13, 0x163EDFFF);
         drawRect(leftMenuX + 6, settingsLabelY + 12, leftMenuX + 92, settingsLabelY + 13, settingsExpanded ? 0x163EDFFF : 0x10FFFFFF);
@@ -595,12 +595,13 @@ public class EscapeMenu extends GuiScreen {
     public static class UILeftButton extends GuiButton {
         private static final int RADIUS = 9;
         private static final int BG_COLOR = 0xB0181C27;
-        private static final int HOVER_BG_COLOR = 0xCC242845;
+        private static final int HOVER_GLOW_COLOR = 0xAA2D355A;
         private static final int BORDER_COLOR = 0x40FFFFFF;
         private static final int TEXT_COLOR = TEXT_PRIMARY;
         private static final int SEGMENTS = 18;
 
         private boolean lastHovered;
+        private float hoverAnim;
 
         public UILeftButton(int id, int x, int y, int width, int height, String text) {
             super(id, x, y, width, height, text);
@@ -617,6 +618,8 @@ public class EscapeMenu extends GuiScreen {
                 playUiSound(HOVER_SOUND, 0.4F, 1.0F);
             }
             lastHovered = hovered;
+            float target = hovered ? 1.0F : 0.0F;
+            hoverAnim += (target - hoverAnim) * 0.28F;
 
             GlStateManager.pushMatrix();
             GlStateManager.enableBlend();
@@ -628,8 +631,11 @@ public class EscapeMenu extends GuiScreen {
             );
             GlStateManager.disableTexture2D();
 
-            drawRoundedRect(x, y, width, height, RADIUS, hovered ? HOVER_BG_COLOR : BG_COLOR);
-            drawRoundedOutline(x, y, width, height, RADIUS, BORDER_COLOR);
+            drawRoundedRect(x, y, width, height, RADIUS, BG_COLOR);
+            if (hoverAnim > 0.01F) {
+                drawRoundedRect(x + 1, y + 1, width - 2, height - 2, Math.max(1, RADIUS - 1), applyAlpha(HOVER_GLOW_COLOR, hoverAnim));
+            }
+            drawRoundedOutline(x, y, width, height, RADIUS, mixColor(BORDER_COLOR, 0x70D9F8FF, hoverAnim));
 
             GlStateManager.enableTexture2D();
             GlStateManager.popMatrix();
@@ -689,6 +695,24 @@ public class EscapeMenu extends GuiScreen {
                 double py = cy + Math.sin(radians) * radius;
                 buffer.pos(px, py, 0).color(r, g, b, a).endVertex();
             }
+        }
+
+        private int applyAlpha(int color, float factor) {
+            int alpha = Math.min(255, Math.max(0, Math.round(((color >>> 24) & 255) * factor)));
+            return (alpha << 24) | (color & 0x00FFFFFF);
+        }
+
+        private int mixColor(int from, int to, float factor) {
+            factor = Math.max(0.0F, Math.min(1.0F, factor));
+            int a = mix((from >>> 24) & 255, (to >>> 24) & 255, factor);
+            int r = mix((from >>> 16) & 255, (to >>> 16) & 255, factor);
+            int g = mix((from >>> 8) & 255, (to >>> 8) & 255, factor);
+            int b = mix(from & 255, to & 255, factor);
+            return (a << 24) | (r << 16) | (g << 8) | b;
+        }
+
+        private int mix(int from, int to, float factor) {
+            return Math.round(from + (to - from) * factor);
         }
     }
 
