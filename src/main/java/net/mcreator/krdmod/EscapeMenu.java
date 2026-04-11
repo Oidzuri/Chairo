@@ -96,8 +96,15 @@ public class EscapeMenu extends GuiScreen {
     private UIScrollList topScroll;
     private UIScrollList statsScroll;
     private int leftMenuX;
+    private int leftMenuWidth;
     private int actionsLabelY;
     private int settingsLabelY;
+    private int rightPanelX;
+    private int rightPanelWidth;
+    private int topPanelY;
+    private int topPanelHeight;
+    private int bottomPanelY;
+    private int bottomPanelHeight;
     private UILeftButton settingsToggleButton;
     private UILeftButton colorButton;
     private UILeftButton directionButton;
@@ -236,11 +243,28 @@ public class EscapeMenu extends GuiScreen {
     }
 
     private void rebuildLayout() {
-        leftMenuX = Math.max(12, width / 72);
-        int topButtonY = Math.max(92, height / 6);
-        int mainGroupHeight = BUTTON_SPACING * 4;
-        int bottomButtonsY = Math.max(topButtonY + mainGroupHeight + 38, height - 122);
-        bottomButtonsY = Math.min(bottomButtonsY, height - 94);
+        int marginX = Math.max(12, width / 70);
+        int marginY = Math.max(14, height / 42);
+        int verticalGap = Math.max(9, Math.min(18, height / 34));
+        int columnGap = Math.max(12, width / 80);
+
+        rightPanelWidth = Math.max(188, Math.min(290, width / 4));
+        rightPanelX = width - rightPanelWidth - marginX;
+
+        leftMenuX = marginX;
+        int safeCenterGap = Math.max(56, width / 6);
+        leftMenuWidth = Math.max(LEFT_MENU_MIN_WIDTH,
+                Math.min(LEFT_MENU_MAX_WIDTH, rightPanelX - leftMenuX - columnGap - safeCenterGap));
+
+        int topButtonY = Math.max(98, Math.min(height / 5 + 10, height - 210));
+        int actionButtonCount = 5;
+        int actionGroupHeight = BUTTON_HEIGHT + (actionButtonCount - 1) * BUTTON_SPACING;
+        int settingsButtonCount = settingsExpanded ? 4 : 1;
+        int settingsGroupHeight = BUTTON_HEIGHT + (settingsButtonCount - 1) * BUTTON_SPACING;
+        int minGroupGap = verticalGap + 8;
+        int preferredSettingsY = height - marginY - BUTTON_HEIGHT - minGroupGap - settingsGroupHeight - 58;
+        int bottomButtonsY = Math.max(topButtonY + actionGroupHeight + minGroupGap, preferredSettingsY);
+        bottomButtonsY = Math.min(bottomButtonsY, height - marginY - BUTTON_HEIGHT - minGroupGap - settingsGroupHeight);
         actionsLabelY = topButtonY - 16;
         settingsLabelY = bottomButtonsY - 16;
 
@@ -260,28 +284,28 @@ public class EscapeMenu extends GuiScreen {
         directionButton.visible = settingsExpanded;
         soundButton.visible = settingsExpanded;
 
-        int exitY = height - 24;
+        int exitY = height - marginY - BUTTON_HEIGHT;
         exitButton = addAutoBtn(5, leftMenuX, exitY, "Выйти из игры");
         optionsIconButton = new IconButton(2, exitButton.x + exitButton.width + 6, exitButton.y,
                 new ResourceLocation("krd_mod", "textures/ui/logo.png"));
         buttonList.add(optionsIconButton);
 
-        int panelW = Math.min(224, Math.max(196, width / 5));
-        int panelX = width - panelW - Math.max(14, width / 70);
-        int topPanelY = 20;
-        int topPanelH = Math.max(146, height / 3 - 4);
-        int bottomPanelY = topPanelY + topPanelH + 10;
-        int bottomPanelH = height - bottomPanelY - 20;
+        int panelW = rightPanelWidth;
+        int panelX = rightPanelX;
+        topPanelY = marginY;
+        topPanelHeight = Math.max(118, Math.min(220, (int) ((height - marginY * 2) * 0.48F)));
+        bottomPanelY = topPanelY + topPanelHeight + verticalGap;
+        bottomPanelHeight = Math.max(110, height - bottomPanelY - marginY);
 
         int topBtnW = panelW / 3;
         buttonList.add(new UITopButton(100, panelX, topPanelY, topBtnW, 22, "Киллы", 0));
         buttonList.add(new UITopButton(101, panelX + topBtnW, topPanelY, topBtnW, 22, "Время", 1));
         buttonList.add(new UITopButton(102, panelX + topBtnW * 2, topPanelY, panelW - topBtnW * 2, 22, "Лвл", 2));
 
-        topScroll = new UIScrollList(panelX + 8, topPanelY + 34, panelW - 16, topPanelH - 46);
-        statsScroll = new UIScrollList(panelX + 8, bottomPanelY + 36, panelW - 16, bottomPanelH - 68);
+        topScroll = new UIScrollList(panelX + 8, topPanelY + 34, panelW - 16, Math.max(48, topPanelHeight - 46));
+        statsScroll = new UIScrollList(panelX + 8, bottomPanelY + 36, panelW - 16, Math.max(44, bottomPanelHeight - 68));
 
-        int socialY = bottomPanelY + bottomPanelH - 26;
+        int socialY = bottomPanelY + bottomPanelHeight - 26;
         int socialStartX = panelX + panelW - 66;
         buttonList.add(new TextIconButton(8, socialStartX, socialY, "WEB"));
         buttonList.add(new TextIconButton(6, socialStartX + 22, socialY, "DS"));
@@ -289,7 +313,7 @@ public class EscapeMenu extends GuiScreen {
     }
 
     private UILeftButton addAutoBtn(int id, int x, int y, String text) {
-        int width = Math.min(LEFT_MENU_MAX_WIDTH, Math.max(LEFT_MENU_MIN_WIDTH, MENU_FONT.getStringWidth(text) + 20));
+        int width = Math.min(leftMenuWidth, Math.max(LEFT_MENU_MIN_WIDTH, MENU_FONT.getStringWidth(text) + 20));
         UILeftButton btn = new UILeftButton(id, x, y, width, BUTTON_HEIGHT, text);
         buttonList.add(btn);
         return btn;
@@ -537,17 +561,16 @@ public class EscapeMenu extends GuiScreen {
         String settings = "НАСТРОЙКИ";
         MENU_FONT.drawString(actions, leftMenuX + 8, actionsLabelY, CYAN_ACCENT);
         MENU_FONT.drawString(settings, leftMenuX + 6, settingsLabelY, settingsExpanded ? CYAN_ACCENT : TEXT_SECONDARY);
-        drawRect(leftMenuX + 6, actionsLabelY + 12, leftMenuX + 92, actionsLabelY + 13, 0x163EDFFF);
-        drawRect(leftMenuX + 6, settingsLabelY + 12, leftMenuX + 92, settingsLabelY + 13, settingsExpanded ? 0x163EDFFF : 0x10FFFFFF);
+        int labelLineEnd = leftMenuX + Math.min(leftMenuWidth - 18, 92);
+        drawRect(leftMenuX + 6, actionsLabelY + 12, labelLineEnd, actionsLabelY + 13, 0x163EDFFF);
+        drawRect(leftMenuX + 6, settingsLabelY + 12, labelLineEnd, settingsLabelY + 13, settingsExpanded ? 0x163EDFFF : 0x10FFFFFF);
     }
 
     private void drawRightPanels(int mouseX, int mouseY) {
-        int panelW = Math.min(224, Math.max(196, width / 5));
-        int panelX = width - panelW - Math.max(14, width / 70);
-        int topPanelY = 20;
-        int topPanelH = Math.max(146, height / 3 - 4);
-        int bottomPanelY = topPanelY + topPanelH + 10;
-        int bottomPanelH = height - bottomPanelY - 20;
+        int panelW = rightPanelWidth;
+        int panelX = rightPanelX;
+        int topPanelH = topPanelHeight;
+        int bottomPanelH = bottomPanelHeight;
 
         drawSoftPanel(panelX, topPanelY, panelW, topPanelH, PANEL_FILL, PANEL_EDGE);
         drawSoftPanel(panelX, bottomPanelY, panelW, bottomPanelH, PANEL_FILL, PANEL_EDGE);
