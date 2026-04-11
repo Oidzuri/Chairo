@@ -1,6 +1,6 @@
 {
   "id_map": {
-    "ENTITY": 30
+    "ENTITY": 42
   },
   "mod_elements": [
     {
@@ -369,76 +369,6 @@
       "path": "~/Nichirins"
     },
     {
-      "name": "Onigiri",
-      "type": "food",
-      "sortid": 39,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "onigiri",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Dango",
-      "type": "food",
-      "sortid": 40,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "dango",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Dango2",
-      "type": "food",
-      "sortid": 41,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "dango_2",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Teriyaki",
-      "type": "food",
-      "sortid": 42,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "teriyaki",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Xleb",
-      "type": "food",
-      "sortid": 43,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "xleb",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Iabloko",
-      "type": "food",
-      "sortid": 44,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "iabloko",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Ramien",
-      "type": "food",
-      "sortid": 45,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "ramien",
-      "path": "~/Foods"
-    },
-    {
       "name": "Marmielad",
       "type": "food",
       "sortid": 46,
@@ -449,83 +379,13 @@
       "path": "~/Foods"
     },
     {
-      "name": "Arbuz",
+      "name": "Eda",
       "type": "food",
-      "sortid": 47,
+      "sortid": 58,
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "arbuz",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Kotfie",
-      "type": "food",
-      "sortid": 48,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "kotfie",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Vodka",
-      "type": "food",
-      "sortid": 49,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "vodka",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Koktieil",
-      "type": "food",
-      "sortid": 50,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "koktieil",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Koktiel2",
-      "type": "food",
-      "sortid": 51,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "koktiel_2",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Chaiulungh",
-      "type": "food",
-      "sortid": 52,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "chaiulungh",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Koktieil3",
-      "type": "food",
-      "sortid": 53,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "koktieil_3",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Koktieil4",
-      "type": "food",
-      "sortid": 54,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "koktieil_4",
+      "registry_name": "eda",
       "path": "~/Foods"
     },
     {
@@ -549,66 +409,6 @@
       "path": "~/Foods"
     },
     {
-      "name": "Zhielie",
-      "type": "food",
-      "sortid": 57,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "zhielie",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Eda",
-      "type": "food",
-      "sortid": 58,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "eda",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Omliet",
-      "type": "food",
-      "sortid": 59,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "omliet",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Kotlietyvpanirovkie",
-      "type": "food",
-      "sortid": 60,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "kotlietyvpanirovkie",
-      "path": "~/Foods"
-    },
-    {
-      "name": "KurinyieLapki",
-      "type": "food",
-      "sortid": 61,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "kurinyie_lapki",
-      "path": "~/Foods"
-    },
-    {
-      "name": "Liedieniets",
-      "type": "food",
-      "sortid": 62,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "liedieniets",
-      "path": "~/Foods"
-    },
-    {
       "name": "Konfieta",
       "type": "food",
       "sortid": 63,
@@ -619,23 +419,33 @@
       "path": "~/Foods"
     },
     {
-      "name": "Liedieniets2",
+      "name": "Koktieil3",
       "type": "food",
-      "sortid": 64,
+      "sortid": 53,
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "liedieniets_2",
+      "registry_name": "koktieil_3",
       "path": "~/Foods"
     },
     {
-      "name": "Kakao",
+      "name": "Iabloko",
       "type": "food",
-      "sortid": 65,
+      "sortid": 44,
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "kakao",
+      "registry_name": "iabloko",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Xleb",
+      "type": "food",
+      "sortid": 43,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "xleb",
       "path": "~/Foods"
     },
     {
@@ -649,13 +459,153 @@
       "path": "~/Foods"
     },
     {
-      "name": "Sushi",
+      "name": "Onigiri",
       "type": "food",
-      "sortid": 67,
+      "sortid": 39,
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "sushi",
+      "registry_name": "onigiri",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Koktieil",
+      "type": "food",
+      "sortid": 50,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "koktieil",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Koktieil4",
+      "type": "food",
+      "sortid": 54,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "koktieil_4",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Arbuz",
+      "type": "food",
+      "sortid": 47,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "arbuz",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Kotfie",
+      "type": "food",
+      "sortid": 48,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "kotfie",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Ramien",
+      "type": "food",
+      "sortid": 45,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "ramien",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Chaiulungh",
+      "type": "food",
+      "sortid": 52,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "chaiulungh",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Omliet",
+      "type": "food",
+      "sortid": 59,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "omliet",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Dango2",
+      "type": "food",
+      "sortid": 41,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "dango_2",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Kakao",
+      "type": "food",
+      "sortid": 65,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "kakao",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Teriyaki",
+      "type": "food",
+      "sortid": 42,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "teriyaki",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Vodka",
+      "type": "food",
+      "sortid": 49,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "vodka",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Liedieniets",
+      "type": "food",
+      "sortid": 62,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "liedieniets",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Dango",
+      "type": "food",
+      "sortid": 40,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "dango",
+      "path": "~/Foods"
+    },
+    {
+      "name": "KurinyieLapki",
+      "type": "food",
+      "sortid": 61,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "kurinyie_lapki",
       "path": "~/Foods"
     },
     {
@@ -669,6 +619,46 @@
       "path": "~/Foods"
     },
     {
+      "name": "Koktiel2",
+      "type": "food",
+      "sortid": 51,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "koktiel_2",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Sushi",
+      "type": "food",
+      "sortid": 67,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "sushi",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Kotlietyvpanirovkie",
+      "type": "food",
+      "sortid": 60,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "kotlietyvpanirovkie",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Liedieniets2",
+      "type": "food",
+      "sortid": 64,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "liedieniets_2",
+      "path": "~/Foods"
+    },
+    {
       "name": "Burghier",
       "type": "food",
       "sortid": 69,
@@ -677,6 +667,29 @@
       "ids": {},
       "registry_name": "burghier",
       "path": "~/Foods"
+    },
+    {
+      "name": "Zhielie",
+      "type": "food",
+      "sortid": 57,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "zhielie",
+      "path": "~/Foods"
+    },
+    {
+      "name": "Sam",
+      "type": "mob",
+      "sortid": 39,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 41,
+        "1": 42
+      },
+      "registry_name": "sam",
+      "path": "~/Mobs"
     }
   ],
   "variable_elements": [],
@@ -713,67 +726,36 @@
       "item.nichirin_kanao.name": "Ничирин Канао",
       "item.nichirin_luna.name": "Ничирин Луны",
       "item.nichirin_zmei.name": "Ничирин Змеи",
-      "item.burghier.name": "Бургер",
-      "item.ramien.name": "Рамен",
       "item.nichirin_bambyk.name": "Ничирин потом назаву как",
-      "item.kotfie.name": "Котфе",
       "itemGroup.tabfoods": "Еда",
       "itemGroup.tabnichirins": "Nichirins",
       "item.nichirin_gold.name": "Золотой Ничирин",
-      "item.kakao.name": "Какао",
-      "item.dango_2.name": "Данго 2",
-      "item.onigiri.name": "Онигири",
       "subtitles.zvuj": "zvuk",
-      "item.iriski.name": "Ириски",
       "item.nichirin_svet.name": "Ничирин Тумана",
       "entity.d_zelenyi.name": "D Zelenyi",
-      "item.marmielad.name": "Мармелад",
       "item.nichirin_kaygaku.name": "Ничирин Кайгаку",
       "entity.d_susamaru.name": "D Susamaru",
       "item.nichirin_rouz.name": "Ничирин Цветка",
       "item.nichirin_kanae.name": "Ничирирн Канаэ",
-      "item.vodichka.name": "Водичка",
-      "item.iabloko.name": "Яблоко",
-      "item.koktieil_4.name": "Коктейль4",
-      "item.koktieil.name": "Вишня",
       "item.nichirin_tanjiro.name": "Ничирин Танжиро",
       "item.nichirin_shinobu.name": "Ничирин Шинобу",
-      "item.kotlietyvpanirovkie.name": "Котлетки в панировке",
-      "item.liedieniets.name": "Леденец",
       "item.nichirin_iguro.name": "Ничирин Обаная",
       "item.nichirin_veter.name": "Ничирин Ветра",
-      "item.chaiulungh.name": "Чаечек",
       "subtitles.click": "Клик",
-      "item.liedieniets_2.name": "Леденец на палочке",
       "item.nichirin_rengoku.name": "Ничирин Ренгоку",
       "item.nichirin_tengen.name": "Ничирин Тенгена",
-      "item.koktieil_3.name": "Вкусняшка",
       "item.nichirin_zenizu.name": "Ничирин Зеницу",
-      "item.dango.name": "Данго",
-      "item.teriyaki.name": "Терияки",
       "item.nichirin_kokushibo.name": "Ничирин Кокушибо",
-      "item.vodka.name": "Водка",
       "subtitles.hover": "hover",
-      "item.kurinyie_lapki.name": "Куринные лапки",
       "item.nichirin_molniya.name": "Ничирин Молнии",
       "item.nichirin_ably.name": "Ничирин ЧЕго то там напишу потом",
-      "item.koktiel_2.name": "Пинаколада",
       "entity.d_shipy.name": "D Shipy",
       "item.nichirin_kanroji.name": "Ничирин Канроджи",
-      "item.eda.name": "Медальоны",
       "item.nichirin_voda.name": "Ничирин Воды",
-      "item.sushi.name": "Ебидоеби",
-      "item.k_oktieil_5.name": "Коктейль5",
-      "item.konfieta.name": "Конфета",
       "item.nichirin_inosuke.name": "Ничирин Иноске",
       "item.nichirin_zver.name": "Ничирин Зверя",
       "item.nichirin_sanemi.name": "Ничирин Санеми",
-      "item.arbuz.name": "Арбуз",
-      "item.nichirin_tokito.name": "Ничирин Муичиро",
-      "item.xleb.name": "Хлебушек",
-      "item.zhielie.name": "Желе",
-      "item.omliet.name": "Omliet",
-      "item.pivo.name": "Пиво"
+      "item.nichirin_tokito.name": "Ничирин Муичиро"
     }
   },
   "foldersRoot": {

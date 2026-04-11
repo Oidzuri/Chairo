@@ -1,25 +1,12 @@
 
 package net.mcreator.krdmod.item;
 
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.Item;
-import net.minecraft.item.EnumAction;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-
-import net.mcreator.krdmod.creativetab.TabFoods;
-import net.mcreator.krdmod.ElementsKrdModMod;
-
 @ElementsKrdModMod.ModElement.Tag
 public class ItemLiedieniets2 extends ElementsKrdModMod.ModElement {
+
 	@GameRegistry.ObjectHolder("krd_mod:liedieniets_2")
 	public static final Item block = null;
+
 	public ItemLiedieniets2(ElementsKrdModMod instance) {
 		super(instance, 64);
 	}
@@ -34,11 +21,14 @@ public class ItemLiedieniets2 extends ElementsKrdModMod.ModElement {
 	public void registerModels(ModelRegistryEvent event) {
 		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("krd_mod:liedieniets_2", "inventory"));
 	}
+
 	public static class ItemFoodCustom extends ItemFood {
+
 		public ItemFoodCustom() {
 			super(4, 0.3f, false);
 			setUnlocalizedName("liedieniets_2");
 			setRegistryName("liedieniets_2");
+
 			setCreativeTab(TabFoods.tab);
 			setMaxStackSize(64);
 		}
@@ -47,5 +37,7 @@ public class ItemLiedieniets2 extends ElementsKrdModMod.ModElement {
 		public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 			return EnumAction.EAT;
 		}
+
 	}
+
 }
