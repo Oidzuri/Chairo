@@ -1,6 +1,6 @@
 {
   "id_map": {
-    "ENTITY": 42
+    "ENTITY": 50
   },
   "mod_elements": [
     {
@@ -690,6 +690,45 @@
       },
       "registry_name": "sam",
       "path": "~/Mobs"
+    },
+    {
+      "name": "Boloto",
+      "type": "mob",
+      "sortid": 70,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 45,
+        "1": 46
+      },
+      "registry_name": "boloto",
+      "path": "~/Mobs"
+    },
+    {
+      "name": "Smilly",
+      "type": "mob",
+      "sortid": 71,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 47,
+        "1": 48
+      },
+      "registry_name": "smilly",
+      "path": "~/Mobs"
+    },
+    {
+      "name": "Yazik",
+      "type": "mob",
+      "sortid": 72,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 49,
+        "1": 50
+      },
+      "registry_name": "yazik",
+      "path": "~/Mobs"
     }
   ],
   "variable_elements": [],
@@ -744,6 +783,7 @@
       "item.nichirin_kaygaku.name": "Ничирин Кайгаку",
       "entity.d_susamaru.name": "D Susamaru",
       "item.nichirin_rouz.name": "Ничирин Цветка",
+      "entity.yazik.name": "Yazik",
       "item.nichirin_kanae.name": "Ничирирн Канаэ",
       "item.vodichka.name": "Водичка",
       "item.iabloko.name": "Яблоко",
@@ -756,6 +796,7 @@
       "item.liedieniets.name": "Леденец",
       "item.nichirin_iguro.name": "Ничирин Обаная",
       "item.nichirin_veter.name": "Ничирин Ветра",
+      "entity.smilly.name": "Smilly",
       "item.chaiulungh.name": "Чаечек",
       "subtitles.click": "Клик",
       "item.liedieniets_2.name": "Леденец на палочке",
@@ -772,6 +813,7 @@
       "item.nichirin_molniya.name": "Ничирин Молнии",
       "item.nichirin_ably.name": "Ничирин ЧЕго то там напишу потом",
       "item.koktiel_2.name": "Пинаколада",
+      "entity.boloto.name": "Boloto",
       "entity.d_shipy.name": "D Shipy",
       "item.nichirin_kanroji.name": "Ничирин Канроджи",
       "item.eda.name": "Медальоны",
