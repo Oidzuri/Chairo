@@ -37,6 +37,7 @@ public class BitmapFontRenderer {
             return 0;
         }
 
+        Minecraft mc = Minecraft.getMinecraft();
         float width = 0.0F;
         for (int i = 0; i < text.length(); i++) {
             char ch = text.charAt(i);
@@ -44,7 +45,13 @@ public class BitmapFontRenderer {
                 break;
             }
             Glyph glyph = glyphs.get((int) ch);
-            width += glyph != null ? glyph.xAdvance : fallbackAdvance;
+            if (glyph != null) {
+                width += glyph.xAdvance;
+            } else if (mc != null && mc.fontRenderer != null) {
+                width += mc.fontRenderer.getStringWidth(String.valueOf(ch)) / scale;
+            } else {
+                width += fallbackAdvance;
+            }
         }
         return Math.max(0, Math.round(width * scale));
     }
@@ -100,7 +107,30 @@ public class BitmapFontRenderer {
 
             Glyph glyph = glyphs.get((int) ch);
             if (glyph == null) {
-                drawX += fallbackAdvance;
+                if (mc.fontRenderer != null) {
+                    GlStateManager.popMatrix();
+                    mc.fontRenderer.drawString(String.valueOf(ch), Math.round(drawX * scale), Math.round(drawY * scale), color, false);
+                    GlStateManager.pushMatrix();
+                    GlStateManager.enableBlend();
+                    GlStateManager.enableAlpha();
+                    GlStateManager.tryBlendFuncSeparate(
+                            GlStateManager.SourceFactor.SRC_ALPHA,
+                            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                            GlStateManager.SourceFactor.ONE,
+                            GlStateManager.DestFactor.ZERO
+                    );
+                    GlStateManager.color(
+                            ((color >> 16) & 255) / 255.0F,
+                            ((color >> 8) & 255) / 255.0F,
+                            (color & 255) / 255.0F,
+                            alpha / 255.0F
+                    );
+                    GlStateManager.scale(scale, scale, 1.0F);
+                    mc.getTextureManager().bindTexture(fontTexture);
+                    drawX += mc.fontRenderer.getStringWidth(String.valueOf(ch)) / scale;
+                } else {
+                    drawX += fallbackAdvance;
+                }
                 continue;
             }
 

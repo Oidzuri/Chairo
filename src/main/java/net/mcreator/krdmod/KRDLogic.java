@@ -22,10 +22,6 @@ public class KRDLogic extends ElementsKrdModMod.ModElement {
 	private final ResourceLocation foodIcon = new ResourceLocation("krd_mod:textures/gui/food.png");
 	private final ResourceLocation expIcon = new ResourceLocation("krd_mod:textures/gui/exp_icon.png");
 
-	private float currentSpecialExp = 50.0F;
-	private float maxSpecialExp = 100.0F;
-	private int tempLevel = 15; 
-
 	private long lastDamageTime = 0, lastHealTime = 0, lastFoodGainTime = 0;
 	private float lastHealth = 20.0F;
 	private int lastFood = 20;
@@ -112,11 +108,14 @@ public class KRDLogic extends ElementsKrdModMod.ModElement {
 			GlStateManager.scale(infoScale, infoScale, 1.0F);
 			int infoY = (int)((mY + 9) / infoScale);
 			int levelX = (int)(bX / infoScale);
-			String lvlTxt = "Уровень: " + tempLevel;
+			int level = ServerLevelBridge.getLevel(mc);
+			int progress = ServerLevelBridge.getProgressPercent(mc);
+			String rank = ServerLevelBridge.getRank(mc);
+			String lvlTxt = "Уровень: " + level;
 			mc.fontRenderer.drawStringWithShadow(lvlTxt, levelX, infoY, 0x00FDFF);
 			int lvlWidth = mc.fontRenderer.getStringWidth(lvlTxt);
 			int rankX = levelX + lvlWidth + 12; 
-			mc.fontRenderer.drawStringWithShadow("Ранг: Мидзуното", rankX, infoY, 0xFFD700);
+			mc.fontRenderer.drawStringWithShadow("Ранг: " + rank, rankX, infoY, 0xFFD700);
 			GlStateManager.popMatrix();
 
 			// Бары (HP теперь использует xp.png)
@@ -127,7 +126,7 @@ public class KRDLogic extends ElementsKrdModMod.ModElement {
 			renderBar(mc, bX, sY + bH + 5, bW, bH, currentFood/20.0F, golodTexture, 0, currentFood + "/20", lastFoodGainTime);
 
 			drawIcon(mc, bX - 14, sY + (bH + 5) * 2 + 1, 8, expIcon);
-			renderBar(mc, bX, sY + (bH + 5) * 2, bW, bH, currentSpecialExp/maxSpecialExp, opitTexture, 0, (int)currentSpecialExp + " / " + (int)maxSpecialExp, 0);
+			renderBar(mc, bX, sY + (bH + 5) * 2, bW, bH, progress / 100.0F, opitTexture, 0, progress + "%", 0);
 
 			GlStateManager.disableBlend();
 			GlStateManager.popMatrix();

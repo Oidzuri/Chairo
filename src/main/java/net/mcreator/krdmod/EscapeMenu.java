@@ -10,11 +10,15 @@ import net.minecraft.client.gui.GuiOptions;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.gui.GuiMerchant;
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.scoreboard.Score;
+import net.minecraft.scoreboard.ScoreObjective;
+import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -27,10 +31,10 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import java.awt.Desktop;
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -51,19 +55,12 @@ public class EscapeMenu extends GuiScreen {
     private static final ResourceLocation CLICK_SOUND = new ResourceLocation("krd_mod", "click");
     private static final ResourceLocation HOVER_SOUND = new ResourceLocation("krd_mod", "hover");
     private static final int LIST_LINE_HEIGHT = 12;
-    private static final int LEFT_MENU_MIN_WIDTH = 106;
-    private static final int LEFT_MENU_MAX_WIDTH = 172;
-    private static final int BUTTON_HEIGHT = 18;
-    private static final int BUTTON_SPACING = 22;
+    private static final int LEFT_MENU_MIN_WIDTH = 138;
+    private static final int LEFT_MENU_MAX_WIDTH = 228;
+    private static final int BUTTON_HEIGHT = 28;
+    private static final int BUTTON_SPACING = 34;
 
-    private static final int[] COLORS = {0x5500A8FF, 0x55FF0055, 0x5500FF55, 0x55FFDD00, 0x55AA00FF, 0x55FFFFFF};
-    private static final String[] COLOR_NAMES = {"Голубой", "Малиновый", "Изумруд", "Золотой", "Фиолетовый", "Белый"};
-    private static final int[][] DIRS = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}, {-1, -1}, {1, 1}};
-    private static final String[] DIR_NAMES = {"Вверх", "Вниз", "Влево", "Вправо", "Диагональ", "Искры"};
     private static boolean soundsEnabled = true;
-    private static int colorIdx = 0;
-    private static int dirIdx = 0;
-    private static boolean settingsExpanded = false;
     public static int currentTop = 0;
     private static int sessionKills = 0;
     private static int sessionDeaths = 0;
@@ -98,17 +95,12 @@ public class EscapeMenu extends GuiScreen {
     private int leftMenuX;
     private int leftMenuWidth;
     private int actionsLabelY;
-    private int settingsLabelY;
     private int rightPanelX;
     private int rightPanelWidth;
     private int topPanelY;
     private int topPanelHeight;
     private int bottomPanelY;
     private int bottomPanelHeight;
-    private UILeftButton settingsToggleButton;
-    private UILeftButton colorButton;
-    private UILeftButton directionButton;
-    private UILeftButton soundButton;
     private UILeftButton exitButton;
     private IconButton optionsIconButton;
 
@@ -220,6 +212,7 @@ public class EscapeMenu extends GuiScreen {
         buttonList.clear();
         openTime = System.currentTimeMillis();
         lastStatsRefresh = 0L;
+        ServerLevelBridge.requestSync(mc);
 
         if (mc.entityRenderer.getShaderGroup() == null) {
             try {
@@ -248,68 +241,59 @@ public class EscapeMenu extends GuiScreen {
         int verticalGap = Math.max(9, Math.min(18, height / 34));
         int columnGap = Math.max(12, width / 80);
 
-        rightPanelWidth = Math.max(188, Math.min(290, width / 4));
+        rightPanelWidth = Math.max(276, Math.min(438, width / 3));
         rightPanelX = width - rightPanelWidth - marginX;
 
         leftMenuX = marginX;
-        int safeCenterGap = Math.max(56, width / 6);
+        int safeCenterGap = Math.max(70, width / 7);
         leftMenuWidth = Math.max(LEFT_MENU_MIN_WIDTH,
                 Math.min(LEFT_MENU_MAX_WIDTH, rightPanelX - leftMenuX - columnGap - safeCenterGap));
 
-        int topButtonY = Math.max(98, Math.min(height / 5 + 10, height - 210));
-        int actionButtonCount = 5;
+        int topButtonY = Math.max(112, Math.min(height / 5 + 28, height - 244));
+        int actionButtonCount = 6;
         int actionGroupHeight = BUTTON_HEIGHT + (actionButtonCount - 1) * BUTTON_SPACING;
-        int settingsButtonCount = settingsExpanded ? 4 : 1;
-        int settingsGroupHeight = BUTTON_HEIGHT + (settingsButtonCount - 1) * BUTTON_SPACING;
-        int minGroupGap = verticalGap + 8;
-        int preferredSettingsY = height - marginY - BUTTON_HEIGHT - minGroupGap - settingsGroupHeight - 58;
-        int bottomButtonsY = Math.max(topButtonY + actionGroupHeight + minGroupGap, preferredSettingsY);
-        bottomButtonsY = Math.min(bottomButtonsY, height - marginY - BUTTON_HEIGHT - minGroupGap - settingsGroupHeight);
         actionsLabelY = topButtonY - 16;
-        settingsLabelY = bottomButtonsY - 16;
 
         int y = topButtonY;
         addAutoBtn(1, leftMenuX, y, "Вернуться в игру");
-        addAutoBtn(3, leftMenuX, y += BUTTON_SPACING, "Настройка скиллов");
+        addAutoBtn(3, leftMenuX, y += BUTTON_SPACING, "Мой профиль");
         addAutoBtn(4, leftMenuX, y += BUTTON_SPACING, "Мои задания");
         addAutoBtn(9, leftMenuX, y += BUTTON_SPACING, "Карта мира");
         addAutoBtn(10, leftMenuX, y += BUTTON_SPACING, "Магазин дыханий");
+        addAutoBtn(11, leftMenuX, y += BUTTON_SPACING, "Настройки");
 
-        settingsToggleButton = addAutoBtn(62, leftMenuX, bottomButtonsY, settingsExpanded ? "Настройки: скрыть" : "Настройки: показать");
-        colorButton = addAutoBtn(60, leftMenuX, bottomButtonsY + BUTTON_SPACING, "Цвет: " + COLOR_NAMES[colorIdx]);
-        directionButton = addAutoBtn(61, leftMenuX, bottomButtonsY + BUTTON_SPACING * 2, "Направление: " + DIR_NAMES[dirIdx]);
-        soundButton = addAutoBtn(50, leftMenuX, bottomButtonsY + BUTTON_SPACING * 3, soundsEnabled ? "Звук: Вкл" : "Звук: Выкл");
-
-        colorButton.visible = settingsExpanded;
-        directionButton.visible = settingsExpanded;
-        soundButton.visible = settingsExpanded;
-
-        int exitY = height - marginY - BUTTON_HEIGHT;
+        int exitY = height - marginY - BUTTON_HEIGHT - 4;
         exitButton = addAutoBtn(5, leftMenuX, exitY, "Выйти из игры");
         optionsIconButton = new IconButton(2, exitButton.x + exitButton.width + 6, exitButton.y,
-                new ResourceLocation("krd_mod", "textures/ui/logo.png"));
+                new ResourceLocation("krd_mod", "textures/ui/settings.png"));
         buttonList.add(optionsIconButton);
 
         int panelW = rightPanelWidth;
         int panelX = rightPanelX;
         topPanelY = marginY;
-        topPanelHeight = Math.max(118, Math.min(220, (int) ((height - marginY * 2) * 0.48F)));
+        topPanelHeight = Math.max(168, Math.min(282, (int) ((height - marginY * 2) * 0.52F)));
         bottomPanelY = topPanelY + topPanelHeight + verticalGap;
         bottomPanelHeight = Math.max(110, height - bottomPanelY - marginY);
 
         int topBtnW = panelW / 3;
-        buttonList.add(new UITopButton(100, panelX, topPanelY, topBtnW, 22, "Киллы", 0));
-        buttonList.add(new UITopButton(101, panelX + topBtnW, topPanelY, topBtnW, 22, "Время", 1));
-        buttonList.add(new UITopButton(102, panelX + topBtnW * 2, topPanelY, panelW - topBtnW * 2, 22, "Лвл", 2));
+        int topTabsY = topPanelY + 18;
+        buttonList.add(new UITopButton(100, panelX, topTabsY, topBtnW, 28, "Киллы", 0));
+        buttonList.add(new UITopButton(101, panelX + topBtnW, topTabsY, topBtnW, 28, "Время", 1));
+        buttonList.add(new UITopButton(102, panelX + topBtnW * 2, topTabsY, panelW - topBtnW * 2, 28, "Лвл", 2));
 
-        topScroll = new UIScrollList(panelX + 8, topPanelY + 34, panelW - 16, Math.max(48, topPanelHeight - 46));
-        statsScroll = new UIScrollList(panelX + 8, bottomPanelY + 36, panelW - 16, Math.max(44, bottomPanelHeight - 68));
+        topScroll = new UIScrollList(panelX + 10, topPanelY + 56, panelW - 20, Math.max(72, topPanelHeight - 68));
+        statsScroll = new UIScrollList(panelX + 10, bottomPanelY + 40, panelW - 20, Math.max(58, bottomPanelHeight - 76));
 
-        int socialY = bottomPanelY + bottomPanelHeight - 26;
-        int socialStartX = panelX + panelW - 66;
-        buttonList.add(new TextIconButton(8, socialStartX, socialY, "WEB"));
-        buttonList.add(new TextIconButton(6, socialStartX + 22, socialY, "DS"));
-        buttonList.add(new TextIconButton(7, socialStartX + 44, socialY, "TG"));
+        int socialY = bottomPanelY + bottomPanelHeight - 30;
+        int iconSize = 22;
+        int iconGap = 8;
+        int siteWidth = Math.max(86, MENU_FONT.getStringWidth("Наш сайт!") + 20);
+        int socialStartX = panelX + panelW - (siteWidth + iconSize * 2 + iconGap * 2) - 10;
+        buttonList.add(new WideTextIconButton(8, socialStartX, socialY, siteWidth, "Наш сайт!"));
+        buttonList.add(new TextIconButton(6, socialStartX + siteWidth + iconGap, socialY, "DS",
+                new ResourceLocation("krd_mod", "textures/ui/ds.png")));
+        buttonList.add(new TextIconButton(7, socialStartX + siteWidth + iconGap * 2 + iconSize, socialY, "TG",
+                new ResourceLocation("krd_mod", "textures/ui/tg.png")));
     }
 
     private UILeftButton addAutoBtn(int id, int x, int y, String text) {
@@ -317,21 +301,6 @@ public class EscapeMenu extends GuiScreen {
         UILeftButton btn = new UILeftButton(id, x, y, width, BUTTON_HEIGHT, text);
         buttonList.add(btn);
         return btn;
-    }
-
-    private void updateSettingsSectionVisibility() {
-        if (settingsToggleButton != null) {
-            settingsToggleButton.displayString = settingsExpanded ? "Настройки: скрыть" : "Настройки: показать";
-        }
-        if (colorButton != null) {
-            colorButton.visible = settingsExpanded;
-        }
-        if (directionButton != null) {
-            directionButton.visible = settingsExpanded;
-        }
-        if (soundButton != null) {
-            soundButton.visible = settingsExpanded;
-        }
     }
 
     private int getStatOrSession(net.minecraft.stats.StatBase stat, int sessionValue) {
@@ -378,18 +347,74 @@ public class EscapeMenu extends GuiScreen {
         }
 
         if (currentTop == 0) {
-            data.add(mc.player.getName() + " - " + getMobKills() + " киллов");
-            data.add("Твоя серия станет выше, если держать темп боя и не терять позицию.");
+            data.addAll(buildTopEntries("krd_kills", "киллов", false));
         } else if (currentTop == 1) {
-            int minutes = getPlayTicks() / 1200;
-            data.add(mc.player.getName() + " - " + formatMinutes(minutes));
-            data.add("Время в мире тоже ресурс: его лучше тратить на путь, а не на возвраты.");
+            data.addAll(buildTopEntries("krd_time", "", true));
         } else {
-            data.add(mc.player.getName() + " - " + mc.player.experienceLevel + " ур.");
-            data.add("Чем выше уровень, тем важнее не только урон, но и ритм снаряжения.");
+            data.addAll(buildTopEntries("krd_lvl", "ур.", false));
         }
 
         topScroll.setData(data);
+    }
+
+    private List<String> buildTopEntries(String objectiveName, String suffix, boolean timeBased) {
+        List<LeaderboardEntry> entries = collectLeaderboard(objectiveName);
+        if (entries.isEmpty()) {
+            return Collections.singletonList("Нет серверных данных для этого топа.");
+        }
+
+        List<String> lines = new ArrayList<>();
+        int limit = Math.min(6, entries.size());
+        for (int i = 0; i < limit; i++) {
+            LeaderboardEntry entry = entries.get(i);
+            String valueText;
+            if (timeBased) {
+                valueText = formatMinutes(entry.value);
+            } else if (suffix.isEmpty()) {
+                valueText = Integer.toString(entry.value);
+            } else {
+                valueText = entry.value + " " + suffix;
+            }
+            lines.add((i + 1) + ". " + entry.name + " — " + valueText);
+        }
+        if (timeBased) {
+            lines.add("Топ строится по общему времени на сервере.");
+        } else if ("krd_kills".equals(objectiveName)) {
+            lines.add("Учитываются убийства мобов из серверной статистики.");
+        } else if ("krd_lvl".equals(objectiveName)) {
+            lines.add("Лидеры по уровню среди игроков онлайн.");
+        }
+        return lines;
+    }
+
+    private List<LeaderboardEntry> collectLeaderboard(String objectiveName) {
+        if (mc == null || mc.world == null || mc.getConnection() == null) {
+            return Collections.emptyList();
+        }
+        Scoreboard scoreboard = mc.world.getScoreboard();
+        if (scoreboard == null) {
+            return Collections.emptyList();
+        }
+        ScoreObjective objective = scoreboard.getObjective(objectiveName);
+        if (objective == null) {
+            return Collections.emptyList();
+        }
+
+        List<LeaderboardEntry> entries = new ArrayList<>();
+        for (NetworkPlayerInfo info : mc.getConnection().getPlayerInfoMap()) {
+            if (info == null || info.getGameProfile() == null) {
+                continue;
+            }
+            String name = info.getGameProfile().getName();
+            if (name == null || name.trim().isEmpty()) {
+                continue;
+            }
+            Score score = scoreboard.getOrCreateScore(name, objective);
+            int value = score == null ? 0 : score.getScorePoints();
+            entries.add(new LeaderboardEntry(name, value));
+        }
+        entries.sort(Comparator.comparingInt((LeaderboardEntry entry) -> entry.value).reversed().thenComparing(entry -> entry.name.toLowerCase()));
+        return entries;
     }
 
     private void updateStatsData() {
@@ -397,6 +422,9 @@ public class EscapeMenu extends GuiScreen {
         if (mc.player != null) {
             stats.add("Убийств: " + getMobKills());
             stats.add("Смертей: " + getDeaths());
+            stats.add("Ранг: " + ServerLevelBridge.getRank(mc));
+            stats.add("Уровень: " + ServerLevelBridge.getLevel(mc));
+            stats.add("Прогресс до следующего уровня: " + ServerLevelBridge.getProgressPercent(mc) + "%");
             stats.add("Прыжков: " + getJumps());
             stats.add("Сундуков: " + getChestOpens());
             stats.add("Разговоров: " + getVillagerTalks());
@@ -461,39 +489,22 @@ public class EscapeMenu extends GuiScreen {
         } else if (button.id >= 100 && button.id <= 102) {
             currentTop = button.id - 100;
             updateTopData();
-        } else if (button.id == 60) {
-            colorIdx = (colorIdx + 1) % COLORS.length;
-            button.displayString = "Цвет: " + COLOR_NAMES[colorIdx];
-        } else if (button.id == 61) {
-            dirIdx = (dirIdx + 1) % DIRS.length;
-            button.displayString = "Направление: " + DIR_NAMES[dirIdx];
-        } else if (button.id == 62) {
-            settingsExpanded = !settingsExpanded;
-            updateSettingsSectionVisibility();
-        } else if (button.id == 50) {
-            soundsEnabled = !soundsEnabled;
-            button.displayString = soundsEnabled ? "Звук: Вкл" : "Звук: Выкл";
         } else if (button.id == 6) {
-            openLink("https://discord.gg/");
+            KRDClientInterop.openDiscord();
         } else if (button.id == 7) {
-            openLink("https://t.me/");
+            KRDClientInterop.openTelegram();
         } else if (button.id == 8) {
-            openLink("https://example.com/");
+            KRDClientInterop.openWebsite();
         } else if (button.id == 3) {
-            mc.displayGuiScreen(new SkillBindingsMenu(this));
+            mc.displayGuiScreen(new ProfileMenu(this));
         } else if (button.id == 4) {
             openQuestJournal();
         } else if (button.id == 9) {
             openJourneyMap();
         } else if (button.id == 10) {
-            openLink("https://example.com/donate");
-        }
-    }
-
-    private void openLink(String url) {
-        try {
-            Desktop.getDesktop().browse(new URI(url));
-        } catch (Exception ignored) {
+            KRDClientInterop.openWebsite();
+        } else if (button.id == 11) {
+            mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
         }
     }
 
@@ -558,12 +569,9 @@ public class EscapeMenu extends GuiScreen {
 
     private void drawLeftGroupLabels() {
         String actions = "ДЕЙСТВИЯ";
-        String settings = "НАСТРОЙКИ";
         MENU_FONT.drawString(actions, leftMenuX + 8, actionsLabelY, CYAN_ACCENT);
-        MENU_FONT.drawString(settings, leftMenuX + 6, settingsLabelY, settingsExpanded ? CYAN_ACCENT : TEXT_SECONDARY);
         int labelLineEnd = leftMenuX + Math.min(leftMenuWidth - 18, 92);
         drawRect(leftMenuX + 6, actionsLabelY + 12, labelLineEnd, actionsLabelY + 13, 0x163EDFFF);
-        drawRect(leftMenuX + 6, settingsLabelY + 12, labelLineEnd, settingsLabelY + 13, settingsExpanded ? 0x163EDFFF : 0x10FFFFFF);
     }
 
     private void drawRightPanels(int mouseX, int mouseY) {
@@ -575,8 +583,9 @@ public class EscapeMenu extends GuiScreen {
         drawSoftPanel(panelX, topPanelY, panelW, topPanelH, PANEL_FILL, PANEL_EDGE);
         drawSoftPanel(panelX, bottomPanelY, panelW, bottomPanelH, PANEL_FILL, PANEL_EDGE);
 
-        drawRect(panelX + 10, topPanelY + 30, panelX + panelW - 10, topPanelY + 31, 0x1236D4EC);
+        drawRect(panelX + 10, topPanelY + 24, panelX + panelW - 10, topPanelY + 25, 0x1236D4EC);
 
+        MENU_FONT.drawString("ТОП ИГРОКОВ", panelX + 10, topPanelY + 6, CYAN_ACCENT);
         String statsTitle = "ВАША СТАТИСТИКА";
         MENU_FONT.drawString(statsTitle, panelX + 10, bottomPanelY + 12, CYAN_ACCENT);
 
@@ -855,6 +864,7 @@ public class EscapeMenu extends GuiScreen {
             drawRect(x, y, x + width, y + height, hovered ? 0x2253E6FF : 0x0F000000);
             mc.getTextureManager().bindTexture(icon);
             GlStateManager.enableBlend();
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             drawModalRectWithCustomSizedTexture(x + 2, y + 2, 0, 0, 16, 16, 16, 16);
         }
 
@@ -866,9 +876,43 @@ public class EscapeMenu extends GuiScreen {
 
     public static class TextIconButton extends GuiButton {
         private final String label;
+        private final ResourceLocation icon;
 
-        public TextIconButton(int id, int x, int y, String label) {
+        public TextIconButton(int id, int x, int y, String label, ResourceLocation icon) {
             super(id, x, y, 20, 20, "");
+            this.label = label;
+            this.icon = icon;
+        }
+
+        @Override
+        public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+            if (!visible) {
+                return;
+            }
+            hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
+            drawRect(x, y, x + width, y + height, hovered ? 0x2253E6FF : 0x0F000000);
+            if (icon != null) {
+                mc.getTextureManager().bindTexture(icon);
+                GlStateManager.enableBlend();
+                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                drawModalRectWithCustomSizedTexture(x + 2, y + 2, 0, 0, 16, 16, 16, 16);
+            } else {
+                int textWidth = MENU_FONT.getStringWidth(label);
+                MENU_FONT.drawString(label, x + (width - textWidth) / 2.0F, y + 7, hovered ? TEXT_PRIMARY : TEXT_SECONDARY);
+            }
+        }
+
+        @Override
+        public void playPressSound(net.minecraft.client.audio.SoundHandler soundHandlerIn) {
+            playUiSound(CLICK_SOUND, 0.5F, 1.0F);
+        }
+    }
+
+    public static class WideTextIconButton extends GuiButton {
+        private final String label;
+
+        public WideTextIconButton(int id, int x, int y, int width, String label) {
+            super(id, x, y, width, 20, "");
             this.label = label;
         }
 
@@ -879,8 +923,7 @@ public class EscapeMenu extends GuiScreen {
             }
             hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
             drawRect(x, y, x + width, y + height, hovered ? 0x2253E6FF : 0x0F000000);
-            int textWidth = MENU_FONT.getStringWidth(label);
-            MENU_FONT.drawString(label, x + (width - textWidth) / 2.0F, y + 7, hovered ? TEXT_PRIMARY : TEXT_SECONDARY);
+            MENU_FONT.drawString(label, x + 5, y + 7, hovered ? TEXT_PRIMARY : TEXT_SECONDARY);
         }
 
         @Override
@@ -901,8 +944,8 @@ public class EscapeMenu extends GuiScreen {
         }
 
         void update(int width, int height) {
-            x += DIRS[dirIdx][0] * size;
-            y += DIRS[dirIdx][1] * size;
+            x += size;
+            y -= size;
             if (y < 0) {
                 y = height;
             }
@@ -915,6 +958,16 @@ public class EscapeMenu extends GuiScreen {
             if (x > width) {
                 x = 0;
             }
+        }
+    }
+
+    private static final class LeaderboardEntry {
+        private final String name;
+        private final int value;
+
+        private LeaderboardEntry(String name, int value) {
+            this.name = name;
+            this.value = value;
         }
     }
 }
